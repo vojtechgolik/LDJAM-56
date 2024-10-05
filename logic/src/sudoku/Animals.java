@@ -1,11 +1,11 @@
 package src.sudoku;
 
 public enum Animals {
-    MURA("M"),
     KRTEK("K"),
+    MURA("M"),
     HAMSTER("H"),
-    SNAIL("S"),
     BAT("B"),
+    SNAIL("S"),
     PAVOUK("P"),
     FLY("F"),
     GRASS_HOPPER("G"),
