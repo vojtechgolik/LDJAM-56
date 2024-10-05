@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://gvfjfalifi6a"]
+
+[ext_resource type="Texture2D" uid="uid://c6yqp1in7khlt" path="res://img/lamp.png" id="1_cnfsv"]
+[ext_resource type="Texture2D" uid="uid://dei0f7bb8stvv" path="res://img/light.png" id="2_w6kky"]
+
+[node name="Lamp" type="Sprite2D"]
+texture = ExtResource("1_cnfsv")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(1, 1, 0.113725, 0.898039)
+blend_mode = 2
+texture = ExtResource("2_w6kky")
+texture_scale = 1.15
