@@ -1154,6 +1154,8 @@ script/source = "extends TileMapLayer
 
 @onready var creatures_map: TileMapLayer = $\".\"
 
+const lamp = preload(\"res://scenes/lamp.tscn\")
+
 
 const ANIMAL_SOURCE_ID = 3
 const OVERLAY_SOURCE_ID = 0
@@ -1164,29 +1166,34 @@ const GAME_BOARD_SIZE = 9
 var animal_map = Dictionary()
 
 var grid = []
-var lamps = []
 
 var last_animal_selected = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	place_light(Vector2i(1, 1))
+	
+	
+	var box_row: int = 2
+	var box_col: int = 2
+	place_light(Vector2i((box_row * 3) + 2, (box_col * 3) + 2))
+	
 	var random = RandomNumberGenerator.new()
 	random.randomize()
-	
 	create_grid_map()
-	create_lamps()
 	for i in range(GAME_BOARD_SIZE):
 		for j in range(GAME_BOARD_SIZE):
 			place_animal(Vector2i(i, j))
+			
+func place_light(location: Vector2i):
+	var new_light = lamp.instantiate()
+	new_light.set_position(Vector2(location.x * 66, location.y * 66))
+	add_child(new_light)
 
 func create_grid_map():	
 	for i in range(0, GAME_BOARD_SIZE):
-		var g: Grid = Grid.new(i)
-		lamps.append(g.new_lamp())
+		var g: Grid = Grid.new()
 		grid.append(g)
-func create_lamps():
-	for lamp: Lamp in lamps:
-		lamp.render_lamp(self)
 	
 func place_animal(location: Vector2i) -> void:
 	var random_animal_id = Vector2i((randi() % MAX_ANIMALS_PER_GAME), 0)
