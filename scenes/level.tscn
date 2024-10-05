@@ -1,9 +1,10 @@
-[gd_scene load_steps=13 format=4 uid="uid://bwdkrbcwjsh0i"]
+[gd_scene load_steps=15 format=4 uid="uid://bwdkrbcwjsh0i"]
 
 [ext_resource type="Texture2D" uid="uid://binbr28ksjo12" path="res://img/bg.png" id="1_o1tti"]
 [ext_resource type="Texture2D" uid="uid://bgaoydp2i44wu" path="res://img/grid_tileset.png" id="2_hwt70"]
 [ext_resource type="Texture2D" uid="uid://b8yoidmm8torg" path="res://img/sprites_fast.png" id="3_ddrqq"]
-[ext_resource type="Texture2D" uid="uid://cqdij4cprjfwo" path="res://img/overlaymap.png" id="5_i5fm5"]
+[ext_resource type="PackedScene" uid="uid://0tp4k6s0s8dp" path="res://bat.tscn" id="3_vfh66"]
+[ext_resource type="Texture2D" uid="uid://bfrnp8m4n5nh3" path="res://img/overlaymap.png" id="5_i5fm5"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_000y4"]
 texture = ExtResource("2_hwt70")
@@ -1107,6 +1108,9 @@ texture_region_size = Vector2i(64, 64)
 0:0/0 = 0
 1:0/0 = 0
 
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_gtqht"]
+scenes/1/scene = ExtResource("3_vfh66")
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_775yj"]
 texture = ExtResource("3_ddrqq")
 separation = Vector2i(1, 0)
@@ -1126,6 +1130,7 @@ tile_size = Vector2i(66, 66)
 sources/0 = SubResource("TileSetAtlasSource_000y4")
 sources/1 = SubResource("TileSetAtlasSource_ygjvc")
 sources/3 = SubResource("TileSetAtlasSource_775yj")
+sources/2 = SubResource("TileSetScenesCollectionSource_gtqht")
 
 [sub_resource type="GDScript" id="GDScript_4bxh6"]
 script/source = "extends TileMapLayer
@@ -1156,7 +1161,6 @@ func _ready() -> void:
 	for i in range(GAME_BOARD_SIZE):
 		for j in range(GAME_BOARD_SIZE):
 			place_animal(Vector2i(i, j))
-			
 			
 func create_light():
 	var new_light = lamp.instantiate()
@@ -1189,20 +1193,36 @@ func _input(event: InputEvent) -> void:
 		var clicked_animal = creatures_map.get_cell_atlas_coords(grid_position).x
 		if last_animal_selected != null:
 			if last_animal_selected.x == grid_position.x and last_animal_selected.y == grid_position.y:
-				overlay.set_cell(last_animal_selected, OVERLAY_SOURCE_ID, Vector2i(-1, -1))
+				reset_overlay()
 				last_animal_selected = null
 				return
 			var last_animal_id = creatures_map.get_cell_atlas_coords(last_animal_selected).x
 			creatures_map.set_cell(last_animal_selected, ANIMAL_SOURCE_ID, Vector2i(clicked_animal, 0))
 			creatures_map.set_cell(grid_position, ANIMAL_SOURCE_ID, Vector2i(last_animal_id, 0))
 			
-			overlay.set_cell(last_animal_selected, OVERLAY_SOURCE_ID, Vector2i(-1, -1))
+			reset_overlay()
 			last_animal_selected = null
 			check_win()
 		else:
 			last_animal_selected = grid_position
 			overlay.set_cell(grid_position, OVERLAY_SOURCE_ID, Vector2i(0, 0))
+			create_overlay_shadow(grid_position)
 			print(\"Animal selected: \", get_animal_from_id(clicked_animal))
+func create_overlay_shadow(current: Vector2i):
+	for i in range(GAME_BOARD_SIZE):
+		for j in range(GAME_BOARD_SIZE):
+			if(current.x != i or current.y != j):
+				overlay.set_cell(Vector2i(i, j), OVERLAY_SOURCE_ID, Vector2i(2, 0))
+	for i in range(-1,2):
+		for j in range(-1, 2):
+			var new_x = current.x + i
+			var new_y = current.y + j
+			if new_x > -1 && new_x < 9 && new_y > -1 && new_y < 9:
+				overlay.set_cell(Vector2i(new_x, new_y), OVERLAY_SOURCE_ID, Vector2i(1,0))
+func reset_overlay():
+	for i in range(GAME_BOARD_SIZE):
+		for j in range(GAME_BOARD_SIZE):
+			overlay.set_cell(Vector2i(i, j), OVERLAY_SOURCE_ID, Vector2i(-1, -1))
 func check_win():
 	pass
 func get_animal_from_id(animal: int):
@@ -1414,7 +1434,7 @@ tile_map_data = PackedByteArray("AAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAACAAAAAAAFAAA
 tile_set = SubResource("TileSet_q70lc")
 
 [node name="creatures_map" type="TileMapLayer" parent="layer_holder/game_board"]
-tile_map_data = PackedByteArray("AAD//wgAAAAAAAMAAAD//wcAAAAAAAMAAAD//wYAAAAAAAMAAAD//wUAAAAAAAMAAAD//wQAAAAAAAMAAAD//wMAAAAAAAMAAAD//wIAAAAAAAMAAAD//wEAAAAAAAMAAAD//wAAAAAAAAMAAAD/////AAAAAAIAAAAAAP//AAABAAIAAAABAP//AAABAAIAAAACAP//AAABAAIAAAADAP//AAABAAIAAAAEAP//AAABAAIAAAAFAP//AAABAAIAAAAGAP//AAABAAIAAAAHAP//AAABAAIAAAAIAP//AAABAAIAAAAJAP//AAACAAIAAAAJAAAAAAACAAMAAAAJAAEAAAACAAMAAAAJAAIAAAACAAMAAAAJAAMAAAACAAMAAAAJAAQAAAACAAMAAAAJAAUAAAACAAMAAAAJAAYAAAACAAMAAAAJAAcAAAACAAMAAAAJAAgAAAACAAMAAAAJAAkAAAACAAQAAAD//wkAAAAAAAQAAAAAAAkAAAABAAQAAAABAAkAAAABAAQAAAACAAkAAAABAAQAAAADAAkAAAABAAQAAAAEAAkAAAABAAQAAAAFAAkAAAABAAQAAAAGAAkAAAABAAQAAAAHAAkAAAABAAQAAAAIAAkAAAABAAQAAAA=")
+tile_map_data = PackedByteArray("AAD//wgAAAAAAAMAAAD//wcAAAAAAAMAAAD//wYAAAAAAAMAAAD//wUAAAAAAAMAAAD//wQAAAAAAAMAAAD//wMAAAAAAAMAAAD//wIAAAAAAAMAAAD//wEAAAAAAAMAAAD//wAAAAAAAAMAAAD/////AAAAAAIAAAAAAP//AAABAAIAAAABAP//AAABAAIAAAACAP//AAABAAIAAAADAP//AAABAAIAAAAGAP//AAABAAIAAAAHAP//AAABAAIAAAAIAP//AAABAAIAAAAJAP//AAACAAIAAAAJAAAAAAACAAMAAAAJAAEAAAACAAMAAAAJAAIAAAACAAMAAAAJAAMAAAACAAMAAAAJAAQAAAACAAMAAAAJAAUAAAACAAMAAAAJAAYAAAACAAMAAAAJAAcAAAACAAMAAAAJAAgAAAACAAMAAAAJAAkAAAACAAQAAAD//wkAAAAAAAQAAAAAAAkAAAABAAQAAAABAAkAAAABAAQAAAACAAkAAAABAAQAAAADAAkAAAABAAQAAAAEAAkAAAABAAQAAAAFAAkAAAABAAQAAAAGAAkAAAABAAQAAAAHAAkAAAABAAQAAAAIAAkAAAABAAQAAAAFAP//AAABAAIAAAAEAP//AAABAAIAAAA=")
 tile_set = SubResource("TileSet_q70lc")
 script = SubResource("GDScript_4bxh6")
 
