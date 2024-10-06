@@ -1191,10 +1191,7 @@ func _ready() -> void:
 	for i in range(GAME_BOARD_SIZE):
 		for j in range(GAME_BOARD_SIZE):
 			place_animal(Vector2i(i, j))
-			
-	get_grid_animals(0)
-	print(\"\\n\")
-	get_grid_animals(8)
+
 
 func create_grid_map():	
 	for i in range(0, GAME_BOARD_SIZE):
@@ -1375,15 +1372,6 @@ func check_grid_has_all(grid_row, grid_col) -> bool:
 	if(animal_map.size() == 9):
 		return true
 	return false
-func get_grid_animals(grid_number: int):
-	for i in range(3):
-		for j in range(3):
-			var grid_row: int = int( grid_number / 3)
-			var grid_col: int = int( grid_number % 3)
-			
-			var grid_offset_x: int = int( grid_row * 3 )
-			var grid_offset_y: int = int( grid_col * 3 )
-			print(\"Grid animal \"+str(grid_number)+\" : \"+ get_animal_from_id(animals[j+grid_offset_x][i+grid_offset_y].id))
 
 func check_moth_lamps() -> bool:
 	var grids_ok = 0
@@ -1413,6 +1401,7 @@ func check_moth_lamps() -> bool:
 	return false
 		
 func check_grid_moth(grid_number: int, valid_space: Array, grid_row, grid_col) -> bool:
+	var to_return = false
 	for i in range(3):
 		for j in range(3):
 			
@@ -1421,9 +1410,11 @@ func check_grid_moth(grid_number: int, valid_space: Array, grid_row, grid_col) -
 			for valid in valid_space:
 				if valid.x == j and valid.y == i:
 					var animal_at: Animal = animals[j+grid_offset_x][i+grid_offset_y]
+					if(animal_at.id == AnimalType.AnimalType.BAT):
+						return false
 					if(animal_at.id == AnimalType.AnimalType.MOTH):
-						return true
-	return false
+						to_return = true
+	return to_return
 func check_spider_flys() -> bool:
 	return true
 
