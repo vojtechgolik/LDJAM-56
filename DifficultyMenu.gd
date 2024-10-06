@@ -4,6 +4,7 @@ extends Control
 @onready var hard: Button = $CenterContainer/VBoxContainer/ButtonContainer/Hard
 @onready var close: Button = $CenterContainer/VBoxContainer/Close
 @onready var main_menu: Control = $"../MainMenu"
+@onready var layer_holder: Node2D = $"../layer_holder"
 
 
 # Called when the node enters the scene tree for the first time.
@@ -22,11 +23,13 @@ func _process(delta: float) -> void:
 func easy_picked():
 	print("Picked easy difficulty")
 	difficulty_menu.visible = false
+	layer_holder.visible = true
 	get_tree().set_pause(false)
 	
 func hard_picked():
 	print("Picked hard difficulty")
 	difficulty_menu.visible = false
+	layer_holder.visible = true
 	get_tree().set_pause(false)
 
 func close_window():
