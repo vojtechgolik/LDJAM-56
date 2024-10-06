@@ -1192,7 +1192,7 @@ script/source = "extends TileMapLayer
 @onready var overlay: TileMapLayer = $\"../overlay\"
 @onready var animation_timer: Timer = $\"../../AnimationTimer\"
 @onready var creatures_map: TileMapLayer = $\".\"
-
+@onready var victory_screen: Control = $\"../../VictoryScreen\"
 const ANIMAL_SOURCE_ID = 4
 const OVERLAY_SOURCE_ID = 0
 
@@ -1329,6 +1329,7 @@ func swap_animals(last: Animal, new: Animal):
 	
 	last.grid_position = new_grid_pos
 	new.grid_position = last_grid_pos
+	total_rounds += 1
 func create_overlay_shadow(current: Vector2i):
 	for i in range(GAME_BOARD_SIZE):
 		for j in range(GAME_BOARD_SIZE):
@@ -1364,7 +1365,8 @@ func check_win():
 			
 
 func on_win():
-	print(\"You have won kekw\")	
+	#print(\\\"You have won kekw\\\")	
+	victory_screen.show_victory_screen(time_elapsed, total_rounds)
 func get_animal_from_id(animal: int):
 	match animal:
 		0:
