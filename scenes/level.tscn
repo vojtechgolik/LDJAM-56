@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://0tp4k6s0s8dp" path="res://scenes/bat.tscn" id="3_vfh66"]
 [ext_resource type="Texture2D" uid="uid://bikg721dolqpe" path="res://img/animal_tilemap.png" id="5_aj17f"]
 [ext_resource type="Texture2D" uid="uid://bfrnp8m4n5nh3" path="res://img/overlaymap.png" id="5_i5fm5"]
-[ext_resource type="PackedScene" uid="uid://c1vterl3po12t" path="res://scenes/inventory.tscn" id="7_bs5uj"]
+[ext_resource type="PackedScene" path="res://scenes/inventory.tscn" id="7_bs5uj"]
 [ext_resource type="PackedScene" uid="uid://7ylgt3dn5s7w" path="res://scenes/difficulty_menu.tscn" id="8_non7j"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_000y4"]
@@ -1191,7 +1191,9 @@ func _ready() -> void:
 		for j in range(GAME_BOARD_SIZE):
 			place_animal(Vector2i(i, j))
 			
-	
+	get_grid_animals(0)
+	print(\"\\n\")
+	get_grid_animals(8)
 
 func create_grid_map():	
 	for i in range(0, GAME_BOARD_SIZE):
@@ -1287,7 +1289,13 @@ func reset_overlay():
 		for j in range(GAME_BOARD_SIZE):
 			overlay.set_cell(Vector2i(i, j), OVERLAY_SOURCE_ID, Vector2i(-1, -1))
 func check_win():
-	pass
+	for i in range(9):
+		var has_all: bool = check_grid_has_all(i)
+		print(\"Grid no# \" + str(i) + \" has all? \" + str(has_all))
+		if not has_all:
+			return
+			
+		
 func get_animal_from_id(animal: int):
 	match animal:
 		0:
@@ -1307,10 +1315,36 @@ func get_animal_from_id(animal: int):
 		7:
 			return \"Fly\" #\"Spider\"
 		8:
-			return \"Moth\"
+			return \"Bee\"
 		_:
 			return \"KEY_UNKNOWN\"
-		
+func check_grid_has_all(grid_number: int) -> bool:
+	var animal_map = Dictionary()
+	for i in range(3):
+		for j in range(3):
+			var grid_row: int = int( grid_number % 3)
+			var grid_col: int = int( grid_number / 3)
+			
+			var grid_offset_x: int = int( grid_row * 3 )
+			var grid_offset_y: int = int( grid_col * 3 )
+			var animal: Animal = animals[j+grid_offset_x][i+grid_offset_y]
+			if(animal_map.has(animal.id)):
+				continue
+			else:
+				animal_map[animal.id] = 1
+	if(animal_map.size() == 9):
+		return true
+	return false
+func get_grid_animals(grid_number: int):
+	for i in range(3):
+		for j in range(3):
+			var grid_row: int = int( grid_number / 3)
+			var grid_col: int = int( grid_number % 3)
+			
+			var grid_offset_x: int = int( grid_row * 3 )
+			var grid_offset_y: int = int( grid_col * 3 )
+			print(\"Grid animal \"+str(grid_number)+\" : \"+ get_animal_from_id(animals[j+grid_offset_x][i+grid_offset_y].id))
+	
 func _process(delta: float) -> void:
 	pass
 "
