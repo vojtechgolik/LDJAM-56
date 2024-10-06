@@ -1279,7 +1279,8 @@ func _input(event: InputEvent) -> void:
 				unselect_animal(last_animal_selected)
 				last_animal_selected = null
 				return
-			swap_animals(last_animal_selected, clicked_animal_new)
+			if overlay.get_cell_atlas_coords(grid_position).x == 1: ## jedna je modry overlay
+				swap_animals(last_animal_selected, clicked_animal_new)
 			reset_overlay()
 			unselect_animal(last_animal_selected)
 			last_animal_selected = null
