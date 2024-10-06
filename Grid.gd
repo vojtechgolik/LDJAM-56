@@ -5,6 +5,7 @@ var light_pos: Vector2i
 var grid_id: int = 0
 var grid_pos: Vector2i = Vector2i(0, 0)
 var animals = []
+var has_all = false;
 
 func _init(grid_id: int) -> void:
 	self.grid_id = grid_id
