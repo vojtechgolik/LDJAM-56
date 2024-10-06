@@ -1167,10 +1167,9 @@ const GAME_BOARD_SIZE = 9
 var animal_map = Dictionary()
 
 var grid = []
-var animals = []
 var lamps = []
 
-var last_animal_selected: Animal = null
+var last_animal_selected = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -1179,18 +1178,14 @@ func _ready() -> void:
 	
 	create_grid_map()
 	create_lamps()
-	
-	#Init 2d Array
-	for i in range(GAME_BOARD_SIZE):
-		animals.append([])
-		for j in range(GAME_BOARD_SIZE):
-			animals[i].append(0)
-		
 	for i in range(GAME_BOARD_SIZE):
 		for j in range(GAME_BOARD_SIZE):
 			place_animal(Vector2i(i, j))
-			
+	var animal = Animal.new(\"test\", 1)
+	animal.position = Vector2(700, 700)
+	add_child(animal)
 	
+	animal.rotate(0.78)
 
 func create_grid_map():	
 	for i in range(0, GAME_BOARD_SIZE):
@@ -1208,15 +1203,12 @@ func place_animal(location: Vector2i) -> void:
 	if animal_map.has(random_animal_id):
 		if animal_map.get(random_animal_id) < MAX_ANIMALS_PER_GAME:
 			animal_map[random_animal_id] = animal_map[random_animal_id]+1
-			var animal = Animal.new(self, random_animal_id.x, location)
-			animals[location.x][location.y] = (animal)
+			creatures_map.set_cell(location, ANIMAL_SOURCE_ID, random_animal_id)
 		else:
 			place_animal(location)
 	else:
 		animal_map[random_animal_id] = 1
-		var animal = Animal.new(self, random_animal_id.x, location)
-		animals[location.x][location.y] = (animal)
-	
+		creatures_map.set_cell(location, ANIMAL_SOURCE_ID, random_animal_id)
 	
 
 func _input(event: InputEvent) -> void:
@@ -1229,46 +1221,24 @@ func _input(event: InputEvent) -> void:
 		if(grid_position.y < 0 or grid_position.x < 0):
 			return
 			
-		var clicked_animal_new: Animal = animals[grid_position.x][grid_position.y]
-		
+		var clicked_animal = creatures_map.get_cell_atlas_coords(grid_position).x
 		if last_animal_selected != null:
-			if last_animal_selected.grid_position.x == grid_position.x and last_animal_selected.grid_position.y == grid_position.y:
+			if last_animal_selected.x == grid_position.x and last_animal_selected.y == grid_position.y:
 				reset_overlay()
-				unselect_animal(last_animal_selected)
 				last_animal_selected = null
 				return
-			swap_animals(last_animal_selected, clicked_animal_new)
+			var last_animal_id = creatures_map.get_cell_atlas_coords(last_animal_selected).x
+			creatures_map.set_cell(last_animal_selected, ANIMAL_SOURCE_ID, Vector2i(clicked_animal, 0))
+			creatures_map.set_cell(grid_position, ANIMAL_SOURCE_ID, Vector2i(last_animal_id, 0))
+			
 			reset_overlay()
-			unselect_animal(last_animal_selected)
 			last_animal_selected = null
 			check_win()
 		else:
-			last_animal_selected = clicked_animal_new
-			select_animal(last_animal_selected)
+			last_animal_selected = grid_position
 			overlay.set_cell(grid_position, OVERLAY_SOURCE_ID, Vector2i(0, 0))
 			create_overlay_shadow(grid_position)
-			print(\"Animal selected: \", get_animal_from_id(clicked_animal_new.id))
-
-func select_animal(animal: Animal):
-	pass
-func unselect_animal(animal: Animal):
-	pass
-
-func swap_animals(last: Animal, new: Animal):
-	var last_pos: Vector2i = last.position
-	var new_pos: Vector2i = new.position
-	
-	var last_grid_pos = last.grid_position
-	var new_grid_pos = new.grid_position
-	
-	last.position = new_pos
-	new.position = last_pos
-	
-	animals[last_grid_pos.x][last_grid_pos.y] = new
-	animals[new_grid_pos.x][new_grid_pos.y]= last
-	
-	last.grid_position = new_grid_pos
-	new.grid_position = last_grid_pos
+			print(\"Animal selected: \", get_animal_from_id(clicked_animal))
 func create_overlay_shadow(current: Vector2i):
 	for i in range(GAME_BOARD_SIZE):
 		for j in range(GAME_BOARD_SIZE):

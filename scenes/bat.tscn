@@ -1,11 +1,13 @@
 [gd_scene load_steps=3 format=3 uid="uid://0tp4k6s0s8dp"]
 
 [ext_resource type="Script" path="res://Animal.gd" id="1_pc6iu"]
-[ext_resource type="Texture2D" uid="uid://b3080ybv2jim4" path="res://img/bat_idle.png" id="2_wdqoo"]
+[ext_resource type="Texture2D" uid="uid://bikg721dolqpe" path="res://img/animal_tilemap.png" id="2_knkfj"]
 
 [node name="Bat" type="Node2D"]
 script = ExtResource("1_pc6iu")
-animal_name = "Bat"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_wdqoo")
+position = Vector2(34, 34)
+texture = ExtResource("2_knkfj")
+region_enabled = true
+region_rect = Rect2(130, 0, 64, 64)
