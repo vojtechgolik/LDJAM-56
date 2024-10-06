@@ -1,17 +1,13 @@
-[gd_scene load_steps=20 format=4 uid="uid://bwdkrbcwjsh0i"]
+[gd_scene load_steps=16 format=4 uid="uid://c30sllcc8yxmo"]
 
-[ext_resource type="PackedScene" uid="uid://63amlns11nnd" path="res://scenes/main_menu.tscn" id="1_cce5c"]
-[ext_resource type="Texture2D" uid="uid://binbr28ksjo12" path="res://img/bg.png" id="1_o1tti"]
-[ext_resource type="Texture2D" uid="uid://bgaoydp2i44wu" path="res://img/grid_tileset.png" id="2_hwt70"]
-[ext_resource type="Texture2D" uid="uid://b8yoidmm8torg" path="res://img/sprites_fast.png" id="3_ddrqq"]
-[ext_resource type="PackedScene" uid="uid://0tp4k6s0s8dp" path="res://scenes/bat.tscn" id="3_vfh66"]
-[ext_resource type="Texture2D" uid="uid://bikg721dolqpe" path="res://img/animal_tilemap.png" id="5_aj17f"]
-[ext_resource type="Texture2D" uid="uid://bfrnp8m4n5nh3" path="res://img/overlaymap.png" id="5_i5fm5"]
-[ext_resource type="PackedScene" uid="uid://c1vterl3po12t" path="res://scenes/inventory.tscn" id="7_bs5uj"]
-[ext_resource type="PackedScene" uid="uid://7ylgt3dn5s7w" path="res://scenes/difficulty_menu.tscn" id="8_non7j"]
+[ext_resource type="Texture2D" uid="uid://bgaoydp2i44wu" path="res://img/grid_tileset.png" id="1_qpn8f"]
+[ext_resource type="PackedScene" uid="uid://0tp4k6s0s8dp" path="res://scenes/bat.tscn" id="2_d4mam"]
+[ext_resource type="Texture2D" uid="uid://b8yoidmm8torg" path="res://img/sprites_fast.png" id="3_6v116"]
+[ext_resource type="Texture2D" uid="uid://bikg721dolqpe" path="res://img/animal_tilemap.png" id="4_1h18f"]
+[ext_resource type="Texture2D" uid="uid://bfrnp8m4n5nh3" path="res://img/overlaymap.png" id="5_rejpt"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_000y4"]
-texture = ExtResource("2_hwt70")
+texture = ExtResource("1_qpn8f")
 texture_region_size = Vector2i(66, 66)
 0:0/0 = 0
 1:0/0 = 0
@@ -1113,10 +1109,10 @@ texture_region_size = Vector2i(64, 64)
 1:0/0 = 0
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_gtqht"]
-scenes/1/scene = ExtResource("3_vfh66")
+scenes/1/scene = ExtResource("2_d4mam")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_775yj"]
-texture = ExtResource("3_ddrqq")
+texture = ExtResource("3_6v116")
 separation = Vector2i(1, 0)
 texture_region_size = Vector2i(60, 60)
 0:0/0 = 0
@@ -1130,7 +1126,7 @@ texture_region_size = Vector2i(60, 60)
 8:0/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ycdhc"]
-texture = ExtResource("5_aj17f")
+texture = ExtResource("4_1h18f")
 texture_region_size = Vector2i(66, 66)
 0:0/0 = 0
 1:0/0 = 0
@@ -1155,7 +1151,7 @@ sources/4 = SubResource("TileSetAtlasSource_ycdhc")
 script/source = "extends TileMapLayer
 
 @onready var overlay: TileMapLayer = $\"../overlay\"
-@onready var timer: Timer = $\"../../AnimationTimer\"
+
 @onready var creatures_map: TileMapLayer = $\".\"
 
 
@@ -1167,12 +1163,10 @@ const GAME_BOARD_SIZE = 9
 
 var animal_map = Dictionary()
 
-var animation_ticks = 0
 var grid = []
-var animals = []
 var lamps = []
 
-var last_animal_selected: Animal = null
+var last_animal_selected = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -1181,18 +1175,9 @@ func _ready() -> void:
 	
 	create_grid_map()
 	create_lamps()
-	
-	#Init 2d Array
-	for i in range(GAME_BOARD_SIZE):
-		animals.append([])
-		for j in range(GAME_BOARD_SIZE):
-			animals[i].append(0)
-		
 	for i in range(GAME_BOARD_SIZE):
 		for j in range(GAME_BOARD_SIZE):
 			place_animal(Vector2i(i, j))
-			
-	
 
 func create_grid_map():	
 	for i in range(0, GAME_BOARD_SIZE):
@@ -1205,20 +1190,15 @@ func create_lamps():
 	
 func place_animal(location: Vector2i) -> void:
 	var random_animal_id = Vector2i((randi() % MAX_ANIMALS_PER_GAME), 0)
-	
-	
 	if animal_map.has(random_animal_id):
 		if animal_map.get(random_animal_id) < MAX_ANIMALS_PER_GAME:
 			animal_map[random_animal_id] = animal_map[random_animal_id]+1
-			var animal = Animal.new(self, random_animal_id.x, location)
-			animals[location.x][location.y] = (animal)
+			creatures_map.set_cell(location, ANIMAL_SOURCE_ID, random_animal_id)
 		else:
 			place_animal(location)
 	else:
 		animal_map[random_animal_id] = 1
-		var animal = Animal.new(self, random_animal_id.x, location)
-		animals[location.x][location.y] = (animal)
-	
+		creatures_map.set_cell(location, ANIMAL_SOURCE_ID, random_animal_id)
 	
 
 func _input(event: InputEvent) -> void:
@@ -1231,52 +1211,24 @@ func _input(event: InputEvent) -> void:
 		if(grid_position.y < 0 or grid_position.x < 0):
 			return
 			
-		var clicked_animal_new: Animal = animals[grid_position.x][grid_position.y]
-		
+		var clicked_animal = creatures_map.get_cell_atlas_coords(grid_position).x
 		if last_animal_selected != null:
-			if last_animal_selected.grid_position.x == grid_position.x and last_animal_selected.grid_position.y == grid_position.y:
+			if last_animal_selected.x == grid_position.x and last_animal_selected.y == grid_position.y:
 				reset_overlay()
-				unselect_animal(last_animal_selected)
 				last_animal_selected = null
 				return
-			swap_animals(last_animal_selected, clicked_animal_new)
+			var last_animal_id = creatures_map.get_cell_atlas_coords(last_animal_selected).x
+			creatures_map.set_cell(last_animal_selected, ANIMAL_SOURCE_ID, Vector2i(clicked_animal, 0))
+			creatures_map.set_cell(grid_position, ANIMAL_SOURCE_ID, Vector2i(last_animal_id, 0))
+			
 			reset_overlay()
-			unselect_animal(last_animal_selected)
 			last_animal_selected = null
 			check_win()
 		else:
-			last_animal_selected = clicked_animal_new
-			select_animal(last_animal_selected)
+			last_animal_selected = grid_position
 			overlay.set_cell(grid_position, OVERLAY_SOURCE_ID, Vector2i(0, 0))
 			create_overlay_shadow(grid_position)
-			print(\"Animal selected: \", get_animal_from_id(clicked_animal_new.id))
-
-func select_animal(animal: Animal):
-	#animal.rotation = 180
-	timer.start()
-	pass
-func unselect_animal(animal: Animal):
-	#animal.rotation = 0
-	timer.stop()
-	animal.rotation = 0
-	animation_ticks = 0
-	pass
-
-func swap_animals(last: Animal, new: Animal):
-	var last_pos: Vector2i = last.position
-	var new_pos: Vector2i = new.position
-	
-	var last_grid_pos = last.grid_position
-	var new_grid_pos = new.grid_position
-	
-	last.position = new_pos
-	new.position = last_pos
-	
-	animals[last_grid_pos.x][last_grid_pos.y] = new
-	animals[new_grid_pos.x][new_grid_pos.y]= last
-	
-	last.grid_position = new_grid_pos
-	new.grid_position = last_grid_pos
+			print(\"Animal selected: \", get_animal_from_id(clicked_animal))
 func create_overlay_shadow(current: Vector2i):
 	for i in range(GAME_BOARD_SIZE):
 		for j in range(GAME_BOARD_SIZE):
@@ -1320,19 +1272,10 @@ func get_animal_from_id(animal: int):
 		
 func _process(delta: float) -> void:
 	pass
-
-
-func _on_animation_timer_timeout() -> void:
-	if animation_ticks < 360:
-		animation_ticks += 1
-	else:
-		animation_ticks = -360
-	last_animal_selected.rotation_degrees = sin(animation_ticks) * 12
-	#pass # Replace with function body.
 "
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_h7iyd"]
-texture = ExtResource("5_i5fm5")
+texture = ExtResource("5_rejpt")
 separation = Vector2i(1, 0)
 texture_region_size = Vector2i(64, 64)
 0:0/0 = 0
@@ -1496,42 +1439,16 @@ texture_region_size = Vector2i(64, 64)
 tile_size = Vector2i(66, 66)
 sources/0 = SubResource("TileSetAtlasSource_h7iyd")
 
-[node name="Level" type="Node"]
+[node name="GameBoard" type="Node2D"]
 
-[node name="AnimationTimer" type="Timer" parent="."]
-process_mode = 3
-wait_time = 0.22
-
-[node name="TextureRect" type="TextureRect" parent="."]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("1_o1tti")
-
-[node name="layer_holder" type="Node2D" parent="."]
-
-[node name="game_board" type="TileMapLayer" parent="layer_holder"]
+[node name="game_board" type="TileMapLayer" parent="."]
 tile_map_data = PackedByteArray("AAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAACAAAAAAAFAAAAAAADAAAAAAAGAAAAAAAEAAAAAAAAAAAAAAAFAAAAAAAFAAAAAAAGAAAAAAAGAAAAAAAHAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAABAAEAAAAAAAAAAAACAAEAAAAFAAAAAAADAAEAAAAGAAAAAAAEAAEAAAAAAAAAAAAFAAEAAAAFAAAAAAAGAAEAAAAGAAAAAAAHAAEAAAAAAAAAAAAIAAEAAAAAAAAAAAAIAAIAAAAHAAAAAAAIAAMAAAAHAAEAAAAHAAMAAAAHAAEAAAAGAAMAAAAFAAEAAAAGAAIAAAAFAAIAAAAFAAIAAAAGAAIAAAAHAAIAAAAHAAAAAAAEAAIAAAAHAAAAAAADAAIAAAAFAAIAAAACAAIAAAAGAAIAAAABAAIAAAAHAAAAAAAAAAIAAAAHAAAAAAAAAAMAAAAHAAEAAAABAAMAAAAHAAEAAAACAAMAAAAGAAEAAAADAAMAAAAFAAEAAAAEAAMAAAAHAAEAAAAFAAMAAAAGAAEAAAAIAAQAAAAAAAAAAAAHAAQAAAAAAAAAAAAGAAQAAAAGAAAAAAAFAAQAAAAFAAAAAAAEAAQAAAAAAAAAAAADAAQAAAAGAAAAAAACAAQAAAAFAAAAAAABAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAUAAAAHAAAAAAABAAUAAAAHAAAAAAACAAUAAAAGAAIAAAADAAUAAAAFAAIAAAAEAAUAAAAHAAAAAAAFAAUAAAAGAAIAAAAGAAUAAAAFAAIAAAAHAAUAAAAHAAAAAAAIAAUAAAAHAAAAAAAIAAYAAAAHAAEAAAAHAAYAAAAHAAEAAAAGAAYAAAAFAAEAAAAFAAYAAAAGAAEAAAAEAAYAAAAHAAEAAAADAAYAAAAFAAEAAAACAAYAAAAGAAEAAAABAAYAAAAHAAEAAAAAAAYAAAAHAAEAAAAAAAcAAAAAAAAAAAAAAAgAAAAAAAAAAAABAAgAAAAAAAAAAAACAAgAAAAFAAAAAAADAAgAAAAGAAAAAAAEAAgAAAAAAAAAAAAFAAgAAAAFAAAAAAAGAAgAAAAGAAAAAAAHAAgAAAAAAAAAAAAIAAgAAAAAAAAAAAAIAAcAAAAAAAAAAAAHAAcAAAAAAAAAAAAGAAcAAAAGAAAAAAAFAAcAAAAFAAAAAAAEAAcAAAAAAAAAAAADAAcAAAAGAAAAAAACAAcAAAAFAAAAAAABAAcAAAAAAAAAAAD//wgAAAAAAAMAAAD//wcAAAAAAAMAAAD//wYAAAAAAAMAAAD//wUAAAAAAAMAAAD//wQAAAAAAAMAAAD//wMAAAAAAAMAAAD//wIAAAAAAAMAAAD//wEAAAAAAAMAAAD//wAAAAAAAAMAAAD/////AAAAAAIAAAAAAP//AAABAAIAAAABAP//AAABAAIAAAACAP//AAABAAIAAAADAP//AAABAAIAAAAEAP//AAABAAIAAAAFAP//AAABAAIAAAAGAP//AAABAAIAAAAHAP//AAABAAIAAAAIAP//AAABAAIAAAAJAP//AAACAAIAAAAJAAAAAAACAAMAAAAJAAEAAAACAAMAAAAJAAIAAAACAAMAAAAJAAMAAAACAAMAAAAJAAQAAAACAAMAAAAJAAUAAAACAAMAAAAJAAYAAAACAAMAAAAJAAcAAAACAAMAAAAJAAgAAAACAAMAAAAJAAkAAAACAAQAAAD//wkAAAAAAAQAAAAAAAkAAAABAAQAAAABAAkAAAABAAQAAAACAAkAAAABAAQAAAADAAkAAAABAAQAAAAEAAkAAAABAAQAAAAFAAkAAAABAAQAAAAGAAkAAAABAAQAAAAHAAkAAAABAAQAAAAIAAkAAAABAAQAAAAAAAoAAAAAAAEAAAABAAoAAAAAAAEAAAACAAoAAAAAAAEAAAADAAoAAAAAAAEAAAAEAAoAAAAAAAEAAAAFAAoAAAAAAAEAAAAGAAoAAAAAAAEAAAAHAAoAAAAAAAEAAAAIAAoAAAAAAAEAAAAAAAwAAAABAAMAAAABAAwAAAABAAMAAAACAAwAAAABAAMAAAADAAwAAAABAAMAAAAEAAwAAAABAAMAAAAFAAwAAAABAAMAAAAGAAwAAAABAAMAAAAHAAwAAAABAAMAAAAIAAwAAAABAAMAAAAJAAoAAAAAAAEAAAAJAAsAAAAAAAEAAAAJAAwAAAABAAMAAAD//woAAAAAAAEAAAD//wsAAAAAAAEAAAD//wwAAAABAAMAAAAAAAsAAAAAAAEAAAABAAsAAAAAAAEAAAACAAsAAAAAAAEAAAADAAsAAAAAAAEAAAAEAAsAAAAAAAEAAAAFAAsAAAAAAAEAAAAGAAsAAAAAAAEAAAAHAAsAAAAAAAEAAAAIAAsAAAAAAAEAAAA=")
 tile_set = SubResource("TileSet_q70lc")
 
-[node name="creatures_map" type="TileMapLayer" parent="layer_holder"]
+[node name="creatures_map" type="TileMapLayer" parent="."]
 tile_map_data = PackedByteArray("AAD//wgAAAAAAAMAAAD//wcAAAAAAAMAAAD//wYAAAAAAAMAAAD//wUAAAAAAAMAAAD//wQAAAAAAAMAAAD//wMAAAAAAAMAAAD//wIAAAAAAAMAAAD//wEAAAAAAAMAAAD//wAAAAAAAAMAAAD/////AAAAAAIAAAAAAP//AAABAAIAAAABAP//AAABAAIAAAACAP//AAABAAIAAAADAP//AAABAAIAAAAGAP//AAABAAIAAAAHAP//AAABAAIAAAAIAP//AAABAAIAAAAJAP//AAACAAIAAAAJAAAAAAACAAMAAAAJAAEAAAACAAMAAAAJAAIAAAACAAMAAAAJAAMAAAACAAMAAAAJAAQAAAACAAMAAAAJAAUAAAACAAMAAAAJAAYAAAACAAMAAAAJAAcAAAACAAMAAAAJAAgAAAACAAMAAAAJAAkAAAACAAQAAAD//wkAAAAAAAQAAAAAAAkAAAABAAQAAAABAAkAAAABAAQAAAACAAkAAAABAAQAAAADAAkAAAABAAQAAAAEAAkAAAABAAQAAAAFAAkAAAABAAQAAAAGAAkAAAABAAQAAAAHAAkAAAABAAQAAAAIAAkAAAABAAQAAAAFAP//AAABAAIAAAAEAP//AAABAAIAAAAAAAoABAAJAAAAAAA=")
 tile_set = SubResource("TileSet_q70lc")
 script = SubResource("GDScript_4bxh6")
 
-[node name="overlay" type="TileMapLayer" parent="layer_holder"]
+[node name="overlay" type="TileMapLayer" parent="."]
 tile_set = SubResource("TileSet_gdw4a")
-
-[node name="Inventory" parent="." instance=ExtResource("7_bs5uj")]
-position = Vector2(0, 662)
-
-[node name="MainMenu" parent="." instance=ExtResource("1_cce5c")]
-visible = false
-
-[node name="DifficultyMenu" parent="." instance=ExtResource("8_non7j")]
-visible = false
-
-[connection signal="timeout" from="AnimationTimer" to="layer_holder/creatures_map" method="_on_animation_timer_timeout"]
-[connection signal="timeout" from="AnimationTimer" to="MainMenu" method="_on_timer_timeout"]
