@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://b2c0wjbnob5jr" path="res://img/grid_tileset_transparent.png" id="5_7hdtq"]
 [ext_resource type="Texture2D" uid="uid://bikg721dolqpe" path="res://img/animal_tilemap.png" id="5_aj17f"]
 [ext_resource type="Texture2D" uid="uid://bfrnp8m4n5nh3" path="res://img/overlaymap.png" id="5_i5fm5"]
-[ext_resource type="PackedScene" path="res://scenes/inventory.tscn" id="7_bs5uj"]
+[ext_resource type="PackedScene" uid="uid://c1vterl3po12t" path="res://scenes/inventory.tscn" id="7_bs5uj"]
 [ext_resource type="PackedScene" uid="uid://7ylgt3dn5s7w" path="res://scenes/difficulty_menu.tscn" id="8_non7j"]
 [ext_resource type="PackedScene" uid="uid://do0gmer0n4by0" path="res://scenes/victory_screen.tscn" id="10_av0g4"]
 
@@ -1196,6 +1196,7 @@ script/source = "extends TileMapLayer
 @onready var overlay: TileMapLayer = $\"../overlay\"
 @onready var animation_timer: Timer = $\"../../AnimationTimer\"
 @onready var creatures_map: TileMapLayer = $\".\"
+@onready var victory_screen: Control = $\"../../VictoryScreen\"
 
 const ANIMAL_SOURCE_ID = 4
 const OVERLAY_SOURCE_ID = 0
@@ -1317,6 +1318,7 @@ func swap_animals(last: Animal, new: Animal):
 	
 	last.grid_position = new_grid_pos
 	new.grid_position = last_grid_pos
+	total_rounds += 1
 func create_overlay_shadow(current: Vector2i):
 	for i in range(GAME_BOARD_SIZE):
 		for j in range(GAME_BOARD_SIZE):
@@ -1352,7 +1354,8 @@ func check_win():
 			
 
 func on_win():
-	print(\"You have won kekw\")	
+	#print(\"You have won kekw\")	
+	victory_screen.show_victory_screen(time_elapsed, total_rounds)
 func get_animal_from_id(animal: int):
 	match animal:
 		0:
@@ -1669,7 +1672,6 @@ script = SubResource("GDScript_4bxh6")
 tile_set = SubResource("TileSet_gdw4a")
 
 [node name="Inventory" parent="." instance=ExtResource("7_bs5uj")]
-visible = false
 position = Vector2(0, 662)
 
 [node name="MainMenu" parent="." instance=ExtResource("1_cce5c")]

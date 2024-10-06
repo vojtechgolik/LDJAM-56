@@ -6,11 +6,13 @@ extends Control
 @onready var label: Label = $CenterContainer/VBoxContainer3/LabelContainer/MarginContainer/Label
 @onready var layer_holder: Node2D = $"../layer_holder"
 @onready var game_time: Timer = $"../GameTime"
+@onready var inventory: Node2D = $"../Inventory"
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	self.visible = true
 	layer_holder.visible = false
+	inventory.visible = false
 	start.pressed.connect(self.start_game)
 	exit.pressed.connect(self.exit_game)
 	get_tree().set_pause(true)

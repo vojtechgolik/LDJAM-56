@@ -46,7 +46,7 @@ text = "Victory!"
 
 [node name="TimeContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/separation = 43
+theme_override_constants/separation = 33
 
 [node name="TimeKey" type="Label" parent="CenterContainer/VBoxContainer/TimeContainer"]
 layout_mode = 2
@@ -67,7 +67,7 @@ theme_override_constants/separation = 18
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 20
-text = "Rounds:"
+text = "Moves:"
 
 [node name="RoundValue" type="Label" parent="CenterContainer/VBoxContainer/RoundContainer"]
 layout_mode = 2
