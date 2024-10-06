@@ -1,0 +1,251 @@
+[gd_scene load_steps=10 format=3 uid="uid://b614h4fi08dpg"]
+
+[ext_resource type="Texture2D" uid="uid://qc2jv3w5bt24" path="res://img/snail/snail_idle.png" id="1_8jffn"]
+[ext_resource type="Texture2D" uid="uid://dvetv1hksbnpi" path="res://img/mole/mole_idle.png" id="1_aaopi"]
+[ext_resource type="Texture2D" uid="uid://drm821ly0f3g7" path="res://img/bat/bat_idle.png" id="2_80p7x"]
+[ext_resource type="Texture2D" uid="uid://cbxocbxqp2nwt" path="res://img/hamster/hamster_idle.png" id="3_0rpil"]
+[ext_resource type="Texture2D" uid="uid://cjx467t0sje5b" path="res://img/moth/moth_idle.png" id="4_ub6m5"]
+[ext_resource type="Texture2D" uid="uid://c5joyol7o30cw" path="res://img/spider/spider_idle.png" id="6_85xax"]
+[ext_resource type="Texture2D" uid="uid://cb4m0fisn5ne" path="res://img/grasshopper/grasshopper_idle.png" id="7_tf804"]
+[ext_resource type="Texture2D" uid="uid://dpmoqd0syvgqg" path="res://img/fly/fly_idle.png" id="8_s12lr"]
+[ext_resource type="Texture2D" uid="uid://dy58cu1b7w8ga" path="res://img/bee/bee_idle.png" id="9_7e5x3"]
+
+[node name="CreatureManual" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ListContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="MoleContainer" type="HBoxContainer" parent="CenterContainer/ListContainer"]
+layout_mode = 2
+
+[node name="MoleIcon" type="TextureRect" parent="CenterContainer/ListContainer/MoleContainer"]
+layout_mode = 2
+texture = ExtResource("1_aaopi")
+
+[node name="MoleDescription" type="VSplitContainer" parent="CenterContainer/ListContainer/MoleContainer"]
+layout_mode = 2
+
+[node name="MoleHead" type="Label" parent="CenterContainer/ListContainer/MoleContainer/MoleDescription"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.603922, 0.196078, 0.219608, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 20
+text = "Mole
+"
+
+[node name="MoleText" type="Label" parent="CenterContainer/ListContainer/MoleContainer/MoleDescription"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+text = "The mole can move any number of squares along 
+a row or a column"
+
+[node name="BatContainer" type="HBoxContainer" parent="CenterContainer/ListContainer"]
+layout_mode = 2
+
+[node name="BatIcon" type="TextureRect" parent="CenterContainer/ListContainer/BatContainer"]
+layout_mode = 2
+texture = ExtResource("2_80p7x")
+
+[node name="BatDescription" type="VSplitContainer" parent="CenterContainer/ListContainer/BatContainer"]
+layout_mode = 2
+
+[node name="BatHead" type="Label" parent="CenterContainer/ListContainer/BatContainer/BatDescription"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.603922, 0.196078, 0.219608, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 20
+text = "Bat"
+
+[node name="BatText" type="Label" parent="CenterContainer/ListContainer/BatContainer/BatDescription"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+text = "The bat can only move in dark areas"
+
+[node name="HamsterContainer" type="HBoxContainer" parent="CenterContainer/ListContainer"]
+layout_mode = 2
+
+[node name="HamsterIcon" type="TextureRect" parent="CenterContainer/ListContainer/HamsterContainer"]
+layout_mode = 2
+texture = ExtResource("3_0rpil")
+
+[node name="HamsterDescription" type="VSplitContainer" parent="CenterContainer/ListContainer/HamsterContainer"]
+layout_mode = 2
+
+[node name="HamsterHead" type="Label" parent="CenterContainer/ListContainer/HamsterContainer/HamsterDescription"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.603922, 0.196078, 0.219608, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 20
+text = "Hamster"
+
+[node name="HamsterText" type="Label" parent="CenterContainer/ListContainer/HamsterContainer/HamsterDescription"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+text = "The hamster can move up to 2 squares along a row
+or column, as well as diagonally"
+
+[node name="MothContainer" type="HBoxContainer" parent="CenterContainer/ListContainer"]
+layout_mode = 2
+
+[node name="MothIcon" type="TextureRect" parent="CenterContainer/ListContainer/MothContainer"]
+layout_mode = 2
+texture = ExtResource("4_ub6m5")
+
+[node name="MothDescription" type="VSplitContainer" parent="CenterContainer/ListContainer/MothContainer"]
+layout_mode = 2
+
+[node name="MothHead" type="Label" parent="CenterContainer/ListContainer/MothContainer/MothDescription"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.603922, 0.196078, 0.219608, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 20
+text = "Moth
+"
+
+[node name="MothText" type="Label" parent="CenterContainer/ListContainer/MothContainer/MothDescription"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+text = "The moth can only move in lit areas"
+
+[node name="SnailContainer" type="HBoxContainer" parent="CenterContainer/ListContainer"]
+layout_mode = 2
+
+[node name="SnailIcon" type="TextureRect" parent="CenterContainer/ListContainer/SnailContainer"]
+layout_mode = 2
+texture = ExtResource("1_8jffn")
+
+[node name="SnailDescription" type="VSplitContainer" parent="CenterContainer/ListContainer/SnailContainer"]
+layout_mode = 2
+
+[node name="SnailHead" type="Label" parent="CenterContainer/ListContainer/SnailContainer/SnailDescription"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.603922, 0.196078, 0.219608, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 20
+text = "Snail"
+
+[node name="SnailText" type="Label" parent="CenterContainer/ListContainer/SnailContainer/SnailDescription"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+text = "The snail can only move one square in any direction"
+
+[node name="SpiderContainer" type="HBoxContainer" parent="CenterContainer/ListContainer"]
+layout_mode = 2
+
+[node name="SpiderIcon" type="TextureRect" parent="CenterContainer/ListContainer/SpiderContainer"]
+layout_mode = 2
+texture = ExtResource("6_85xax")
+
+[node name="SpiderDescription" type="VSplitContainer" parent="CenterContainer/ListContainer/SpiderContainer"]
+layout_mode = 2
+
+[node name="SpiderHead" type="Label" parent="CenterContainer/ListContainer/SpiderContainer/SpiderDescription"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.603922, 0.196078, 0.219608, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 20
+text = "Spider"
+
+[node name="SpiderText" type="Label" parent="CenterContainer/ListContainer/SpiderContainer/SpiderDescription"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+text = "The spider can move any number of squares diagonally"
+
+[node name="GrasshopperContainer" type="HBoxContainer" parent="CenterContainer/ListContainer"]
+layout_mode = 2
+
+[node name="GrasshopperIcon" type="TextureRect" parent="CenterContainer/ListContainer/GrasshopperContainer"]
+layout_mode = 2
+texture = ExtResource("7_tf804")
+
+[node name="GrasshopperDescription" type="VSplitContainer" parent="CenterContainer/ListContainer/GrasshopperContainer"]
+layout_mode = 2
+
+[node name="GrasshopperHead" type="Label" parent="CenterContainer/ListContainer/GrasshopperContainer/GrasshopperDescription"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.603922, 0.196078, 0.219608, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 20
+text = "Grasshopper"
+
+[node name="GrasshopperText" type="Label" parent="CenterContainer/ListContainer/GrasshopperContainer/GrasshopperDescription"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+text = "The grasshopper moves in an L pattern"
+
+[node name="FlyContainer" type="HBoxContainer" parent="CenterContainer/ListContainer"]
+layout_mode = 2
+
+[node name="FlyIcon" type="TextureRect" parent="CenterContainer/ListContainer/FlyContainer"]
+layout_mode = 2
+texture = ExtResource("8_s12lr")
+
+[node name="FlyDescription" type="VSplitContainer" parent="CenterContainer/ListContainer/FlyContainer"]
+layout_mode = 2
+
+[node name="FlyHead" type="Label" parent="CenterContainer/ListContainer/FlyContainer/FlyDescription"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.603922, 0.196078, 0.219608, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 20
+text = "Fly"
+
+[node name="FlyText" type="Label" parent="CenterContainer/ListContainer/FlyContainer/FlyDescription"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+text = "The fly can move up to 2 squares diagonally"
+
+[node name="BeeContainer" type="HBoxContainer" parent="CenterContainer/ListContainer"]
+layout_mode = 2
+
+[node name="BeeIcon" type="TextureRect" parent="CenterContainer/ListContainer/BeeContainer"]
+layout_mode = 2
+texture = ExtResource("9_7e5x3")
+
+[node name="BeeDescription" type="VSplitContainer" parent="CenterContainer/ListContainer/BeeContainer"]
+layout_mode = 2
+
+[node name="BeeHead" type="Label" parent="CenterContainer/ListContainer/BeeContainer/BeeDescription"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.603922, 0.196078, 0.219608, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 20
+text = "Bee"
+
+[node name="BeeText" type="Label" parent="CenterContainer/ListContainer/BeeContainer/BeeDescription"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+text = "The bee can move any number of squares along
+a row or column as well as diagonally"
