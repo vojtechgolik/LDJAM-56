@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://0tp4k6s0s8dp"]
+
+[ext_resource type="Script" path="res://Animal.gd" id="1_pc6iu"]
+[ext_resource type="Texture2D" uid="uid://b3080ybv2jim4" path="res://img/bat_idle.png" id="2_wdqoo"]
+
+[node name="Bat" type="Node2D"]
+script = ExtResource("1_pc6iu")
+animal_name = "Bat"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_wdqoo")
