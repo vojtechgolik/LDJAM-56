@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://b2c0wjbnob5jr" path="res://img/grid_tileset_transparent.png" id="5_7hdtq"]
 [ext_resource type="Texture2D" uid="uid://bikg721dolqpe" path="res://img/animal_tilemap.png" id="5_aj17f"]
 [ext_resource type="Texture2D" uid="uid://bfrnp8m4n5nh3" path="res://img/overlaymap.png" id="5_i5fm5"]
-[ext_resource type="PackedScene" path="res://scenes/inventory.tscn" id="7_bs5uj"]
+[ext_resource type="PackedScene" uid="uid://c1vterl3po12t" path="res://scenes/inventory.tscn" id="7_bs5uj"]
 [ext_resource type="PackedScene" uid="uid://7ylgt3dn5s7w" path="res://scenes/difficulty_menu.tscn" id="8_non7j"]
 [ext_resource type="PackedScene" uid="uid://do0gmer0n4by0" path="res://scenes/victory_screen.tscn" id="10_av0g4"]
 
@@ -1278,7 +1278,8 @@ func _input(event: InputEvent) -> void:
 				unselect_animal(last_animal_selected)
 				last_animal_selected = null
 				return
-			swap_animals(last_animal_selected, clicked_animal_new)
+			if overlay.get_cell_atlas_coords(grid_position).x == 1: ## jedna je modry overlay
+				swap_animals(last_animal_selected, clicked_animal_new)
 			reset_overlay()
 			unselect_animal(last_animal_selected)
 			last_animal_selected = null
