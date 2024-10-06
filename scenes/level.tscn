@@ -24,7 +24,6 @@ color = Color(1, 0.933333, 0.890196, 1)
 metadata/_edit_lock_ = true
 
 [node name="Inventory" parent="." instance=ExtResource("7_bs5uj")]
-visible = false
 position = Vector2(0, 662)
 
 [node name="MainMenu" parent="." instance=ExtResource("1_cce5c")]
