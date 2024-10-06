@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://b2c0wjbnob5jr" path="res://img/grid_tileset_transparent.png" id="5_7hdtq"]
 [ext_resource type="Texture2D" uid="uid://bikg721dolqpe" path="res://img/animal_tilemap.png" id="5_aj17f"]
 [ext_resource type="Texture2D" uid="uid://bfrnp8m4n5nh3" path="res://img/overlaymap.png" id="5_i5fm5"]
-[ext_resource type="PackedScene" path="res://scenes/inventory.tscn" id="7_bs5uj"]
+[ext_resource type="PackedScene" uid="uid://c1vterl3po12t" path="res://scenes/inventory.tscn" id="7_bs5uj"]
 [ext_resource type="PackedScene" uid="uid://7ylgt3dn5s7w" path="res://scenes/difficulty_menu.tscn" id="8_non7j"]
 [ext_resource type="PackedScene" uid="uid://do0gmer0n4by0" path="res://scenes/victory_screen.tscn" id="10_av0g4"]
 
@@ -1231,7 +1231,8 @@ func _ready() -> void:
 	for i in range(GAME_BOARD_SIZE):
 		for j in range(GAME_BOARD_SIZE):
 			place_animal(Vector2i(i, j))
-
+			
+	
 
 func create_grid_map():	
 	for i in range(0, GAME_BOARD_SIZE):
@@ -1282,7 +1283,7 @@ func _input(event: InputEvent) -> void:
 			reset_overlay()
 			unselect_animal(last_animal_selected)
 			last_animal_selected = null
-			
+			check_win()
 		else:
 			last_animal_selected = clicked_animal_new
 			select_animal(last_animal_selected)
@@ -1295,7 +1296,6 @@ func select_animal(animal: Animal):
 	animation_timer.start()
 	pass
 func unselect_animal(animal: Animal):
-	check_win()
 	#animal.rotation = 0
 	animation_timer.stop()
 	animal.rotation = 0
@@ -1333,26 +1333,8 @@ func reset_overlay():
 	for i in range(GAME_BOARD_SIZE):
 		for j in range(GAME_BOARD_SIZE):
 			overlay.set_cell(Vector2i(i, j), OVERLAY_SOURCE_ID, Vector2i(-1, -1))
-
 func check_win():
-	var all_complete: bool = check_all_complete()
-	
-	var moth_lamp_correct: bool = check_moth_lamps()
-	
-	if not all_complete:
-		return
-	if not moth_lamp_correct:
-		return
-	var spider_flys_correct: bool = check_spider_flys()
-
-	if not spider_flys_correct:
-		return
-		
-	on_win()
-			
-
-func on_win():
-	print(\"You have won kekw\")	
+	pass
 func get_animal_from_id(animal: int):
 	match animal:
 		0:
@@ -1372,91 +1354,12 @@ func get_animal_from_id(animal: int):
 		7:
 			return \"Fly\" #\"Spider\"
 		8:
-			return \"Bee\"
+			return \"Moth\"
 		_:
 			return \"KEY_UNKNOWN\"
-func check_all_complete():
-	var completed = 0
-	for g: Grid in grid:
-		var has_all: bool = check_grid_has_all(g.grid_pos.x, g.grid_pos.y)
-		if has_all:
-			g.has_all = true
-			color_grid(g.grid_id, 3)
-			completed = completed+1
-		else:
-			g.has_all = false
-	if completed == 9:
-		return true
-	return false
-func color_grid(grid_number: int, grid_color: int):
-	for i in range(3):
-		for j in range(3):
-			var grid_row: int = int( grid_number / 3)
-			var grid_col: int = int( grid_number % 3)
-			
-			var grid_offset_x: int = int( grid_row * 3 )
-			var grid_offset_y: int = int( grid_col * 3 )
-			overlay.set_cell(Vector2i(j+grid_offset_x, i+grid_offset_y), OVERLAY_SOURCE_ID, Vector2i(grid_color, 0))
-func check_grid_has_all(grid_row, grid_col) -> bool:
-	var animal_map = Dictionary()
-	for i in range(3):
-		for j in range(3):
-			
-			var grid_offset_x: int = int( grid_row * 3 )
-			var grid_offset_y: int = int( grid_col * 3 )
-			var animal: Animal = animals[j+grid_offset_x][i+grid_offset_y]
-			if(animal_map.has(animal.id)):
-				continue
-			else:
-				animal_map[animal.id] = 1
-	if(animal_map.size() == 9):
-		return true
-	return false
-
-func check_moth_lamps() -> bool:
-	var grids_ok = 0
-	for g: Grid in grid:
-		var light_pos = g.light_pos
-		var grid_number = g.grid_id
 		
-		var valid_space = []
-		valid_space.append(light_pos - Vector2i(0, 0))
-		valid_space.append(light_pos - Vector2i(0, 1))
-		valid_space.append(light_pos - Vector2i(1, 0))
-		valid_space.append(light_pos - Vector2i(1, 1))
-		
-
-		var moth_checked: bool = check_grid_moth(grid_number, valid_space, g.grid_pos.x, g.grid_pos.y)
-		if(moth_checked):
-			print(\"Moth correct... \" + str(g.grid_id))
-			if(g.has_all):
-				print(g.light_pos)
-				color_grid(grid_number, 4)
-			else:
-				print(\"does not have all!!!\")
-			grids_ok = grids_ok + 1
-	if grids_ok == 9:
-		return true
-		
-	return false
-		
-func check_grid_moth(grid_number: int, valid_space: Array, grid_row, grid_col) -> bool:
-	var to_return = false
-	for i in range(3):
-		for j in range(3):
-			
-			var grid_offset_x: int = int( grid_row * 3 )
-			var grid_offset_y: int = int( grid_col * 3 )
-			for valid in valid_space:
-				if valid.x == j and valid.y == i:
-					var animal_at: Animal = animals[j+grid_offset_x][i+grid_offset_y]
-					if(animal_at.id == AnimalType.AnimalType.BAT):
-						return false
-					if(animal_at.id == AnimalType.AnimalType.MOTH):
-						to_return = true
-	return to_return
-func check_spider_flys() -> bool:
-	return true
+func _process(delta: float) -> void:
+	pass
 
 
 func _on_animation_timer_timeout() -> void:
