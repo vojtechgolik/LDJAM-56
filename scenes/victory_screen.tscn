@@ -1,6 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://do0gmer0n4by0"]
+[gd_scene load_steps=6 format=3 uid="uid://do0gmer0n4by0"]
 
 [ext_resource type="Script" path="res://victory_screen.gd" id="1_x7uiw"]
+[ext_resource type="Texture2D" uid="uid://4kya2boipv2j" path="res://img/game_background.png" id="2_px2ag"]
+[ext_resource type="FontFile" uid="uid://bon3ffufyicl4" path="res://fonts/Caveat-SemiBold.ttf" id="3_pthal"]
+[ext_resource type="FontFile" uid="uid://bewjrkmffn8ry" path="res://fonts/IBMPlexSerif-Medium.ttf" id="4_6obxq"]
+[ext_resource type="StyleBox" uid="uid://bbiwaxxhkhmg8" path="res://presets/button_background.tres" id="5_68cnd"]
 
 [node name="VictoryScreen" type="Control"]
 process_mode = 3
@@ -23,6 +27,15 @@ grow_vertical = 2
 color = Color(1, 0.933333, 0.890196, 1)
 metadata/_edit_lock_ = true
 
+[node name="GameBackground" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_px2ag")
+
 [node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
@@ -40,8 +53,9 @@ theme_override_constants/margin_bottom = 10
 
 [node name="Victory" type="Label" parent="CenterContainer/VBoxContainer/LabelMargin"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.603922, 0.196078, 0.219608, 1)
-theme_override_font_sizes/font_size = 66
+theme_override_colors/font_color = Color(0.887369, 0.393453, 0.405311, 1)
+theme_override_fonts/font = ExtResource("3_pthal")
+theme_override_font_sizes/font_size = 120
 text = "Victory!"
 
 [node name="TimeContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
@@ -51,13 +65,15 @@ theme_override_constants/separation = 33
 [node name="TimeKey" type="Label" parent="CenterContainer/VBoxContainer/TimeContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 20
+theme_override_fonts/font = ExtResource("4_6obxq")
+theme_override_font_sizes/font_size = 32
 text = "Time:"
 
 [node name="TimeValue" type="Label" parent="CenterContainer/VBoxContainer/TimeContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 24
+theme_override_fonts/font = ExtResource("4_6obxq")
+theme_override_font_sizes/font_size = 32
 
 [node name="RoundContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
@@ -66,13 +82,15 @@ theme_override_constants/separation = 18
 [node name="RoundKey" type="Label" parent="CenterContainer/VBoxContainer/RoundContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 20
+theme_override_fonts/font = ExtResource("4_6obxq")
+theme_override_font_sizes/font_size = 32
 text = "Moves:"
 
 [node name="RoundValue" type="Label" parent="CenterContainer/VBoxContainer/RoundContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 24
+theme_override_fonts/font = ExtResource("4_6obxq")
+theme_override_font_sizes/font_size = 32
 
 [node name="ButtonMargin" type="MarginContainer" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
@@ -85,12 +103,16 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+theme_override_fonts/font = ExtResource("4_6obxq")
 theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = ExtResource("5_68cnd")
 text = "Start Again"
 
 [node name="Exit" type="Button" parent="CenterContainer/VBoxContainer/ButtonMargin/ButtonContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+theme_override_fonts/font = ExtResource("4_6obxq")
 theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = ExtResource("5_68cnd")
 text = "Exit"

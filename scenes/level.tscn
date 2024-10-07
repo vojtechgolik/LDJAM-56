@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://bwdkrbcwjsh0i"]
+[gd_scene load_steps=9 format=3 uid="uid://bwdkrbcwjsh0i"]
 
 [ext_resource type="PackedScene" uid="uid://63amlns11nnd" path="res://scenes/main_menu.tscn" id="1_cce5c"]
+[ext_resource type="Texture2D" uid="uid://4kya2boipv2j" path="res://img/game_background.png" id="1_l08ik"]
 [ext_resource type="PackedScene" uid="uid://bi2v4fy8xvet3" path="res://scenes/layer_holder.tscn" id="5_d33uo"]
 [ext_resource type="PackedScene" uid="uid://b614h4fi08dpg" path="res://scenes/creature_manual.tscn" id="6_76wk3"]
 [ext_resource type="PackedScene" uid="uid://c1vterl3po12t" path="res://scenes/inventory.tscn" id="7_bs5uj"]
@@ -12,14 +13,17 @@
 
 [node name="GlobalTime" type="Timer" parent="."]
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="GameBackground" type="TextureRect" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -152.0
+offset_top = -89.0
+offset_right = 152.0
+offset_bottom = 89.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(1, 0.933333, 0.890196, 1)
-metadata/_edit_lock_ = true
+texture = ExtResource("1_l08ik")
 
 [node name="Inventory" parent="." instance=ExtResource("7_bs5uj")]
 visible = false
