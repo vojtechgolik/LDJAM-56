@@ -1190,8 +1190,7 @@ sources/6 = SubResource("TileSetAtlasSource_hxyfk")
 script/source = "extends TileMapLayer
 
 @onready var overlay: TileMapLayer = $\"../overlay\"
-#@onready var game_timer: Timer = $\"../GameTimer\"
-@onready var game_time: Timer = $GameTime
+@onready var game_time: Timer = $\"../GameTimer\"
 @onready var animation_timer: Timer = $\"../AnimationTimer\"
 @onready var creatures_map: TileMapLayer = $\".\"
 @onready var victory_screen: Control = $\"../../VictoryScreen\"
@@ -1200,7 +1199,7 @@ const OVERLAY_SOURCE_ID = 0
 
 const MAX_ANIMALS_PER_GAME = 9
 const GAME_BOARD_SIZE = 9
-
+var children
 var animal_map = Dictionary()
 
 var total_rounds = 0
@@ -1470,6 +1469,9 @@ func check_spider_flys() -> bool:
 	return true
 
 func play_again() -> void:
+	children = get_children()
+	for child in children:
+		child.free()
 	animal_map = Dictionary()
 
 	total_rounds = 0
@@ -1480,7 +1482,8 @@ func play_again() -> void:
 	lamps = []
 
 	last_animal_selected = null
-	
+	game_time.start()
+	reset_overlay()
 	_ready()
 	
 
@@ -1489,7 +1492,8 @@ func _on_animation_timer_timeout() -> void:
 		animation_ticks += 1
 	else:
 		animation_ticks = -360
-	last_animal_selected.rotation_degrees = sin(animation_ticks) * 12
+	if last_animal_selected != null:
+		last_animal_selected.rotation_degrees = sin(animation_ticks) * 12
 
 func _on_game_timer_timeout() -> void:
 	time_elapsed += 1
