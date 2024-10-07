@@ -1289,7 +1289,6 @@ func _input(event: InputEvent) -> void:
 			overlay.set_cell(grid_position, OVERLAY_SOURCE_ID, Vector2i(0, 0))
 			last_animal_selected.draw_overlay(overlay, grid_position, get_all_lamp_absolute_position())
 			#create_overlay_shadow(grid_position)
-			print(\"Animal selected: \", get_animal_from_id(clicked_animal_new.id))
 func get_all_lamp_absolute_position() -> Array:
 	var lamp_absolute_position = []
 	for g: Grid in grid:
@@ -1367,7 +1366,6 @@ func check_win():
 			
 
 func on_win():
-	#print(\\\"You have won kekw\\\")	
 	victory_screen.show_victory_screen(time_elapsed, total_rounds)
 	game_time.stop()
 func get_animal_from_id(animal: int):
@@ -1445,12 +1443,8 @@ func check_moth_lamps() -> bool:
 
 		var moth_checked: bool = check_grid_moth(grid_number, valid_space, g.grid_pos.x, g.grid_pos.y)
 		if(moth_checked):
-			print(\"Moth correct... \" + str(g.grid_id))
 			if(g.has_all):
-				print(g.light_pos)
 				color_grid(grid_number, 4)
-			else:
-				print(\"does not have all!!!\")
 			grids_ok = grids_ok + 1
 	if grids_ok == 9:
 		return true
@@ -1475,6 +1469,20 @@ func check_grid_moth(grid_number: int, valid_space: Array, grid_row, grid_col) -
 func check_spider_flys() -> bool:
 	return true
 
+func play_again() -> void:
+	animal_map = Dictionary()
+
+	total_rounds = 0
+	time_elapsed = 0
+	animation_ticks = 0
+	grid = []
+	animals = []
+	lamps = []
+
+	last_animal_selected = null
+	
+	_ready()
+	
 
 func _on_animation_timer_timeout() -> void:
 	if animation_ticks < 360:

@@ -1,10 +1,13 @@
-[gd_scene load_steps=11 format=3 uid="uid://b614h4fi08dpg"]
+[gd_scene load_steps=14 format=3 uid="uid://b614h4fi08dpg"]
 
 [ext_resource type="Script" path="res://scenes/creature_manual.gd" id="1_2oxxa"]
 [ext_resource type="Texture2D" uid="uid://qc2jv3w5bt24" path="res://img/snail/snail_idle.png" id="1_8jffn"]
 [ext_resource type="Texture2D" uid="uid://dvetv1hksbnpi" path="res://img/mole/mole_idle.png" id="1_aaopi"]
 [ext_resource type="Texture2D" uid="uid://drm821ly0f3g7" path="res://img/bat/bat_idle.png" id="2_80p7x"]
+[ext_resource type="Texture2D" uid="uid://4kya2boipv2j" path="res://img/game_background.png" id="2_xlcsf"]
 [ext_resource type="Texture2D" uid="uid://cbxocbxqp2nwt" path="res://img/hamster/hamster_idle.png" id="3_0rpil"]
+[ext_resource type="FontFile" uid="uid://bon3ffufyicl4" path="res://fonts/Caveat-SemiBold.ttf" id="3_q2tq6"]
+[ext_resource type="FontFile" uid="uid://bewjrkmffn8ry" path="res://fonts/IBMPlexSerif-Medium.ttf" id="4_m8ldy"]
 [ext_resource type="Texture2D" uid="uid://cjx467t0sje5b" path="res://img/moth/moth_idle.png" id="4_ub6m5"]
 [ext_resource type="Texture2D" uid="uid://c5joyol7o30cw" path="res://img/spider/spider_idle.png" id="6_85xax"]
 [ext_resource type="Texture2D" uid="uid://cb4m0fisn5ne" path="res://img/grasshopper/grasshopper_idle.png" id="7_tf804"]
@@ -31,6 +34,20 @@ grow_vertical = 2
 color = Color(1, 0.933333, 0.890196, 1)
 metadata/_edit_lock_ = true
 
+[node name="Grasslang" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -108.0
+offset_top = -70.0
+offset_right = 196.0
+offset_bottom = 108.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.896114, 1.02843)
+texture = ExtResource("2_xlcsf")
+
 [node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
@@ -53,13 +70,15 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.603922, 0.196078, 0.219608, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 2
-theme_override_font_sizes/font_size = 36
+theme_override_fonts/font = ExtResource("3_q2tq6")
+theme_override_font_sizes/font_size = 60
 text = "The Goal"
 horizontal_alignment = 1
 
 [node name="Rules" type="Label" parent="CenterContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_m8ldy")
 theme_override_font_sizes/font_size = 16
 text = "The objective is to fill every inner grid with every 
 type of animal in as little moves as possible.
@@ -86,6 +105,7 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.603922, 0.196078, 0.219608, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 2
+theme_override_fonts/font = ExtResource("4_m8ldy")
 theme_override_font_sizes/font_size = 20
 text = "Mole
 "
@@ -93,6 +113,7 @@ text = "Mole
 [node name="MoleText" type="Label" parent="CenterContainer/VBoxContainer/ListContainer/MoleContainer/MoleDescription"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_m8ldy")
 theme_override_font_sizes/font_size = 14
 text = "The mole can move any number of squares along 
 a row or a column"
@@ -113,12 +134,14 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.603922, 0.196078, 0.219608, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 2
+theme_override_fonts/font = ExtResource("4_m8ldy")
 theme_override_font_sizes/font_size = 20
 text = "Bat"
 
 [node name="BatText" type="Label" parent="CenterContainer/VBoxContainer/ListContainer/BatContainer/BatDescription"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_m8ldy")
 theme_override_font_sizes/font_size = 14
 text = "The bat can only move in dark areas"
 
@@ -138,12 +161,14 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.603922, 0.196078, 0.219608, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 2
+theme_override_fonts/font = ExtResource("4_m8ldy")
 theme_override_font_sizes/font_size = 20
 text = "Hamster"
 
 [node name="HamsterText" type="Label" parent="CenterContainer/VBoxContainer/ListContainer/HamsterContainer/HamsterDescription"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_m8ldy")
 theme_override_font_sizes/font_size = 14
 text = "The hamster can only move 1 square along a row
 or column, as well as diagonally"
@@ -164,6 +189,7 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.603922, 0.196078, 0.219608, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 2
+theme_override_fonts/font = ExtResource("4_m8ldy")
 theme_override_font_sizes/font_size = 20
 text = "Moth
 "
@@ -171,6 +197,7 @@ text = "Moth
 [node name="MothText" type="Label" parent="CenterContainer/VBoxContainer/ListContainer/MothContainer/MothDescription"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_m8ldy")
 theme_override_font_sizes/font_size = 14
 text = "The moth can only move in lit areas"
 
@@ -190,12 +217,14 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.603922, 0.196078, 0.219608, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 2
+theme_override_fonts/font = ExtResource("4_m8ldy")
 theme_override_font_sizes/font_size = 20
 text = "Snail"
 
 [node name="SnailText" type="Label" parent="CenterContainer/VBoxContainer/ListContainer/SnailContainer/SnailDescription"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_m8ldy")
 theme_override_font_sizes/font_size = 14
 text = "The snail can only move 1 square in any direction"
 
@@ -215,12 +244,14 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.603922, 0.196078, 0.219608, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 2
+theme_override_fonts/font = ExtResource("4_m8ldy")
 theme_override_font_sizes/font_size = 20
 text = "Spider"
 
 [node name="SpiderText" type="Label" parent="CenterContainer/VBoxContainer/ListContainer/SpiderContainer/SpiderDescription"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_m8ldy")
 theme_override_font_sizes/font_size = 14
 text = "The spider can move any number of squares diagonally"
 
@@ -240,12 +271,14 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.603922, 0.196078, 0.219608, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 2
+theme_override_fonts/font = ExtResource("4_m8ldy")
 theme_override_font_sizes/font_size = 20
 text = "Grasshopper"
 
 [node name="GrasshopperText" type="Label" parent="CenterContainer/VBoxContainer/ListContainer/GrasshopperContainer/GrasshopperDescription"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_m8ldy")
 theme_override_font_sizes/font_size = 14
 text = "The grasshopper moves in an L pattern"
 
@@ -265,12 +298,14 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.603922, 0.196078, 0.219608, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 2
+theme_override_fonts/font = ExtResource("4_m8ldy")
 theme_override_font_sizes/font_size = 20
 text = "Fly"
 
 [node name="FlyText" type="Label" parent="CenterContainer/VBoxContainer/ListContainer/FlyContainer/FlyDescription"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_m8ldy")
 theme_override_font_sizes/font_size = 14
 text = "The fly can move up to 2 squares diagonally"
 
@@ -290,12 +325,14 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.603922, 0.196078, 0.219608, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 2
+theme_override_fonts/font = ExtResource("4_m8ldy")
 theme_override_font_sizes/font_size = 20
 text = "Bee"
 
 [node name="BeeText" type="Label" parent="CenterContainer/VBoxContainer/ListContainer/BeeContainer/BeeDescription"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_m8ldy")
 theme_override_font_sizes/font_size = 14
 text = "The bee can move any number of squares along a row 
 or column as well as diagonally"
