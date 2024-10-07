@@ -7,6 +7,7 @@ extends Control
 @onready var layer_holder: Node2D = $"../layer_holder"
 @onready var game_timer: Timer = $"../layer_holder/GameTimer"
 @onready var inventory: Node2D = $"../Inventory"
+@onready var global_time: Timer = $"../GlobalTime"
 
 
 # Called when the node enters the scene tree for the first time.
@@ -29,6 +30,7 @@ func easy_picked():
 	#inventory.visible = true
 	get_tree().set_pause(false)
 	game_timer.start()
+	global_time.start()
 	
 func hard_picked():
 	print("Picked hard difficulty")
@@ -37,6 +39,7 @@ func hard_picked():
 	#inventory.visible = true
 	get_tree().set_pause(false)
 	game_timer.start()
+	global_time.start()
 
 func close_window():
 	difficulty_menu.visible = false

@@ -2,6 +2,7 @@ extends Button
 @onready var creature_manual: Control = $"../../CreatureManual"
 @onready var layer_holder: Node2D = $"../../layer_holder"
 @onready var game_timer: Timer = $"../../layer_holder/GameTimer"
+@onready var global_time: Timer = $"../../GlobalTime"
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -14,5 +15,6 @@ func _process(delta: float) -> void:
 
 func _on_toggled(toggled_on: bool) -> void:
 	creature_manual.visible = toggled_on
-	if (not game_timer.is_stopped()):
+	if (not global_time.is_stopped()):
 		layer_holder.visible = !toggled_on
+		get_tree().set_pause(toggled_on)

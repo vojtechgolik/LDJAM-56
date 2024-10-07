@@ -39,20 +39,49 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ListContainer" type="VBoxContainer" parent="CenterContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="HBoxContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="RulesHead" type="Label" parent="CenterContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.603922, 0.196078, 0.219608, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 36
+text = "The Goal"
+horizontal_alignment = 1
+
+[node name="Rules" type="Label" parent="CenterContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+text = "The objective is to fill every inner grid with every 
+type of animal in as little moves as possible.
+Keep in mind that the moth must remain 
+under a lamp & the bat must avoid it"
+horizontal_alignment = 1
+
+[node name="ListContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="MoleContainer" type="HBoxContainer" parent="CenterContainer/ListContainer"]
+[node name="MoleContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer/ListContainer"]
 layout_mode = 2
 
-[node name="MoleIcon" type="TextureRect" parent="CenterContainer/ListContainer/MoleContainer"]
+[node name="MoleIcon" type="TextureRect" parent="CenterContainer/VBoxContainer/ListContainer/MoleContainer"]
 layout_mode = 2
 texture = ExtResource("1_aaopi")
 
-[node name="MoleDescription" type="VSplitContainer" parent="CenterContainer/ListContainer/MoleContainer"]
+[node name="MoleDescription" type="VBoxContainer" parent="CenterContainer/VBoxContainer/ListContainer/MoleContainer"]
 layout_mode = 2
+alignment = 1
 
-[node name="MoleHead" type="Label" parent="CenterContainer/ListContainer/MoleContainer/MoleDescription"]
+[node name="MoleHead" type="Label" parent="CenterContainer/VBoxContainer/ListContainer/MoleContainer/MoleDescription"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.603922, 0.196078, 0.219608, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -61,24 +90,25 @@ theme_override_font_sizes/font_size = 20
 text = "Mole
 "
 
-[node name="MoleText" type="Label" parent="CenterContainer/ListContainer/MoleContainer/MoleDescription"]
+[node name="MoleText" type="Label" parent="CenterContainer/VBoxContainer/ListContainer/MoleContainer/MoleDescription"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 16
+theme_override_font_sizes/font_size = 14
 text = "The mole can move any number of squares along 
 a row or a column"
 
-[node name="BatContainer" type="HBoxContainer" parent="CenterContainer/ListContainer"]
+[node name="BatContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer/ListContainer"]
 layout_mode = 2
 
-[node name="BatIcon" type="TextureRect" parent="CenterContainer/ListContainer/BatContainer"]
+[node name="BatIcon" type="TextureRect" parent="CenterContainer/VBoxContainer/ListContainer/BatContainer"]
 layout_mode = 2
 texture = ExtResource("2_80p7x")
 
-[node name="BatDescription" type="VSplitContainer" parent="CenterContainer/ListContainer/BatContainer"]
+[node name="BatDescription" type="VBoxContainer" parent="CenterContainer/VBoxContainer/ListContainer/BatContainer"]
 layout_mode = 2
+alignment = 1
 
-[node name="BatHead" type="Label" parent="CenterContainer/ListContainer/BatContainer/BatDescription"]
+[node name="BatHead" type="Label" parent="CenterContainer/VBoxContainer/ListContainer/BatContainer/BatDescription"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.603922, 0.196078, 0.219608, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -86,23 +116,24 @@ theme_override_constants/outline_size = 2
 theme_override_font_sizes/font_size = 20
 text = "Bat"
 
-[node name="BatText" type="Label" parent="CenterContainer/ListContainer/BatContainer/BatDescription"]
+[node name="BatText" type="Label" parent="CenterContainer/VBoxContainer/ListContainer/BatContainer/BatDescription"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 16
+theme_override_font_sizes/font_size = 14
 text = "The bat can only move in dark areas"
 
-[node name="HamsterContainer" type="HBoxContainer" parent="CenterContainer/ListContainer"]
+[node name="HamsterContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer/ListContainer"]
 layout_mode = 2
 
-[node name="HamsterIcon" type="TextureRect" parent="CenterContainer/ListContainer/HamsterContainer"]
+[node name="HamsterIcon" type="TextureRect" parent="CenterContainer/VBoxContainer/ListContainer/HamsterContainer"]
 layout_mode = 2
 texture = ExtResource("3_0rpil")
 
-[node name="HamsterDescription" type="VSplitContainer" parent="CenterContainer/ListContainer/HamsterContainer"]
+[node name="HamsterDescription" type="VBoxContainer" parent="CenterContainer/VBoxContainer/ListContainer/HamsterContainer"]
 layout_mode = 2
+alignment = 1
 
-[node name="HamsterHead" type="Label" parent="CenterContainer/ListContainer/HamsterContainer/HamsterDescription"]
+[node name="HamsterHead" type="Label" parent="CenterContainer/VBoxContainer/ListContainer/HamsterContainer/HamsterDescription"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.603922, 0.196078, 0.219608, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -110,24 +141,25 @@ theme_override_constants/outline_size = 2
 theme_override_font_sizes/font_size = 20
 text = "Hamster"
 
-[node name="HamsterText" type="Label" parent="CenterContainer/ListContainer/HamsterContainer/HamsterDescription"]
+[node name="HamsterText" type="Label" parent="CenterContainer/VBoxContainer/ListContainer/HamsterContainer/HamsterDescription"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 16
-text = "The hamster can move up to 2 squares along a row
+theme_override_font_sizes/font_size = 14
+text = "The hamster can only move 1 square along a row
 or column, as well as diagonally"
 
-[node name="MothContainer" type="HBoxContainer" parent="CenterContainer/ListContainer"]
+[node name="MothContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer/ListContainer"]
 layout_mode = 2
 
-[node name="MothIcon" type="TextureRect" parent="CenterContainer/ListContainer/MothContainer"]
+[node name="MothIcon" type="TextureRect" parent="CenterContainer/VBoxContainer/ListContainer/MothContainer"]
 layout_mode = 2
 texture = ExtResource("4_ub6m5")
 
-[node name="MothDescription" type="VSplitContainer" parent="CenterContainer/ListContainer/MothContainer"]
+[node name="MothDescription" type="VBoxContainer" parent="CenterContainer/VBoxContainer/ListContainer/MothContainer"]
 layout_mode = 2
+alignment = 1
 
-[node name="MothHead" type="Label" parent="CenterContainer/ListContainer/MothContainer/MothDescription"]
+[node name="MothHead" type="Label" parent="CenterContainer/VBoxContainer/ListContainer/MothContainer/MothDescription"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.603922, 0.196078, 0.219608, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -136,23 +168,24 @@ theme_override_font_sizes/font_size = 20
 text = "Moth
 "
 
-[node name="MothText" type="Label" parent="CenterContainer/ListContainer/MothContainer/MothDescription"]
+[node name="MothText" type="Label" parent="CenterContainer/VBoxContainer/ListContainer/MothContainer/MothDescription"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 16
+theme_override_font_sizes/font_size = 14
 text = "The moth can only move in lit areas"
 
-[node name="SnailContainer" type="HBoxContainer" parent="CenterContainer/ListContainer"]
+[node name="SnailContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer/ListContainer"]
 layout_mode = 2
 
-[node name="SnailIcon" type="TextureRect" parent="CenterContainer/ListContainer/SnailContainer"]
+[node name="SnailIcon" type="TextureRect" parent="CenterContainer/VBoxContainer/ListContainer/SnailContainer"]
 layout_mode = 2
 texture = ExtResource("1_8jffn")
 
-[node name="SnailDescription" type="VSplitContainer" parent="CenterContainer/ListContainer/SnailContainer"]
+[node name="SnailDescription" type="VBoxContainer" parent="CenterContainer/VBoxContainer/ListContainer/SnailContainer"]
 layout_mode = 2
+alignment = 1
 
-[node name="SnailHead" type="Label" parent="CenterContainer/ListContainer/SnailContainer/SnailDescription"]
+[node name="SnailHead" type="Label" parent="CenterContainer/VBoxContainer/ListContainer/SnailContainer/SnailDescription"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.603922, 0.196078, 0.219608, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -160,23 +193,24 @@ theme_override_constants/outline_size = 2
 theme_override_font_sizes/font_size = 20
 text = "Snail"
 
-[node name="SnailText" type="Label" parent="CenterContainer/ListContainer/SnailContainer/SnailDescription"]
+[node name="SnailText" type="Label" parent="CenterContainer/VBoxContainer/ListContainer/SnailContainer/SnailDescription"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 16
-text = "The snail can only move one square in any direction"
+theme_override_font_sizes/font_size = 14
+text = "The snail can only move 1 square in any direction"
 
-[node name="SpiderContainer" type="HBoxContainer" parent="CenterContainer/ListContainer"]
+[node name="SpiderContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer/ListContainer"]
 layout_mode = 2
 
-[node name="SpiderIcon" type="TextureRect" parent="CenterContainer/ListContainer/SpiderContainer"]
+[node name="SpiderIcon" type="TextureRect" parent="CenterContainer/VBoxContainer/ListContainer/SpiderContainer"]
 layout_mode = 2
 texture = ExtResource("6_85xax")
 
-[node name="SpiderDescription" type="VSplitContainer" parent="CenterContainer/ListContainer/SpiderContainer"]
+[node name="SpiderDescription" type="VBoxContainer" parent="CenterContainer/VBoxContainer/ListContainer/SpiderContainer"]
 layout_mode = 2
+alignment = 1
 
-[node name="SpiderHead" type="Label" parent="CenterContainer/ListContainer/SpiderContainer/SpiderDescription"]
+[node name="SpiderHead" type="Label" parent="CenterContainer/VBoxContainer/ListContainer/SpiderContainer/SpiderDescription"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.603922, 0.196078, 0.219608, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -184,23 +218,24 @@ theme_override_constants/outline_size = 2
 theme_override_font_sizes/font_size = 20
 text = "Spider"
 
-[node name="SpiderText" type="Label" parent="CenterContainer/ListContainer/SpiderContainer/SpiderDescription"]
+[node name="SpiderText" type="Label" parent="CenterContainer/VBoxContainer/ListContainer/SpiderContainer/SpiderDescription"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 16
+theme_override_font_sizes/font_size = 14
 text = "The spider can move any number of squares diagonally"
 
-[node name="GrasshopperContainer" type="HBoxContainer" parent="CenterContainer/ListContainer"]
+[node name="GrasshopperContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer/ListContainer"]
 layout_mode = 2
 
-[node name="GrasshopperIcon" type="TextureRect" parent="CenterContainer/ListContainer/GrasshopperContainer"]
+[node name="GrasshopperIcon" type="TextureRect" parent="CenterContainer/VBoxContainer/ListContainer/GrasshopperContainer"]
 layout_mode = 2
 texture = ExtResource("7_tf804")
 
-[node name="GrasshopperDescription" type="VSplitContainer" parent="CenterContainer/ListContainer/GrasshopperContainer"]
+[node name="GrasshopperDescription" type="VBoxContainer" parent="CenterContainer/VBoxContainer/ListContainer/GrasshopperContainer"]
 layout_mode = 2
+alignment = 1
 
-[node name="GrasshopperHead" type="Label" parent="CenterContainer/ListContainer/GrasshopperContainer/GrasshopperDescription"]
+[node name="GrasshopperHead" type="Label" parent="CenterContainer/VBoxContainer/ListContainer/GrasshopperContainer/GrasshopperDescription"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.603922, 0.196078, 0.219608, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -208,23 +243,24 @@ theme_override_constants/outline_size = 2
 theme_override_font_sizes/font_size = 20
 text = "Grasshopper"
 
-[node name="GrasshopperText" type="Label" parent="CenterContainer/ListContainer/GrasshopperContainer/GrasshopperDescription"]
+[node name="GrasshopperText" type="Label" parent="CenterContainer/VBoxContainer/ListContainer/GrasshopperContainer/GrasshopperDescription"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 16
+theme_override_font_sizes/font_size = 14
 text = "The grasshopper moves in an L pattern"
 
-[node name="FlyContainer" type="HBoxContainer" parent="CenterContainer/ListContainer"]
+[node name="FlyContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer/ListContainer"]
 layout_mode = 2
 
-[node name="FlyIcon" type="TextureRect" parent="CenterContainer/ListContainer/FlyContainer"]
+[node name="FlyIcon" type="TextureRect" parent="CenterContainer/VBoxContainer/ListContainer/FlyContainer"]
 layout_mode = 2
 texture = ExtResource("8_s12lr")
 
-[node name="FlyDescription" type="VSplitContainer" parent="CenterContainer/ListContainer/FlyContainer"]
+[node name="FlyDescription" type="VBoxContainer" parent="CenterContainer/VBoxContainer/ListContainer/FlyContainer"]
 layout_mode = 2
+alignment = 1
 
-[node name="FlyHead" type="Label" parent="CenterContainer/ListContainer/FlyContainer/FlyDescription"]
+[node name="FlyHead" type="Label" parent="CenterContainer/VBoxContainer/ListContainer/FlyContainer/FlyDescription"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.603922, 0.196078, 0.219608, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -232,23 +268,24 @@ theme_override_constants/outline_size = 2
 theme_override_font_sizes/font_size = 20
 text = "Fly"
 
-[node name="FlyText" type="Label" parent="CenterContainer/ListContainer/FlyContainer/FlyDescription"]
+[node name="FlyText" type="Label" parent="CenterContainer/VBoxContainer/ListContainer/FlyContainer/FlyDescription"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 16
+theme_override_font_sizes/font_size = 14
 text = "The fly can move up to 2 squares diagonally"
 
-[node name="BeeContainer" type="HBoxContainer" parent="CenterContainer/ListContainer"]
+[node name="BeeContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer/ListContainer"]
 layout_mode = 2
 
-[node name="BeeIcon" type="TextureRect" parent="CenterContainer/ListContainer/BeeContainer"]
+[node name="BeeIcon" type="TextureRect" parent="CenterContainer/VBoxContainer/ListContainer/BeeContainer"]
 layout_mode = 2
 texture = ExtResource("9_7e5x3")
 
-[node name="BeeDescription" type="VSplitContainer" parent="CenterContainer/ListContainer/BeeContainer"]
+[node name="BeeDescription" type="VBoxContainer" parent="CenterContainer/VBoxContainer/ListContainer/BeeContainer"]
 layout_mode = 2
+alignment = 1
 
-[node name="BeeHead" type="Label" parent="CenterContainer/ListContainer/BeeContainer/BeeDescription"]
+[node name="BeeHead" type="Label" parent="CenterContainer/VBoxContainer/ListContainer/BeeContainer/BeeDescription"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.603922, 0.196078, 0.219608, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -256,9 +293,9 @@ theme_override_constants/outline_size = 2
 theme_override_font_sizes/font_size = 20
 text = "Bee"
 
-[node name="BeeText" type="Label" parent="CenterContainer/ListContainer/BeeContainer/BeeDescription"]
+[node name="BeeText" type="Label" parent="CenterContainer/VBoxContainer/ListContainer/BeeContainer/BeeDescription"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 16
-text = "The bee can move any number of squares along
-a row or column as well as diagonally"
+theme_override_font_sizes/font_size = 14
+text = "The bee can move any number of squares along a row 
+or column as well as diagonally"
