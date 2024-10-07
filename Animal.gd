@@ -63,7 +63,7 @@ func draw_lamp_move(overlay: TileMapLayer, current: Vector2i, lamps: Array):#lam
 	for lamp: Vector2i in lamps:
 		overlay.set_cell(Vector2i(lamp.x, lamp.y), OVERLAY_SOURCE_ID, Vector2i(Overlay.OverlayType.CAN_MOVE,0))
 func draw_darkness_move(overlay: TileMapLayer, current: Vector2i, lamps: Array): #bat 
-	draw_queen_move(overlay, current)
+	draw_full_move(overlay, current)
 	for lamp: Vector2i in lamps:
 		overlay.set_cell(Vector2i(lamp.x, lamp.y), OVERLAY_SOURCE_ID, Vector2i(Overlay.OverlayType.CANNOT_MOVE,0))
 func draw_shorten_bischop_move(overlay: TileMapLayer, current: Vector2i): #fly
@@ -100,8 +100,10 @@ func draw_knight_move(overlay: TileMapLayer, current: Vector2i): #grasshopper
 		var new_position = current + move
 		if new_position.x >= 0 and new_position.x < 9 and new_position.y >= 0 and new_position.y < 9:
 			overlay.set_cell(new_position, OVERLAY_SOURCE_ID, Vector2i(Overlay.OverlayType.CAN_MOVE, 0))
-
-func draw_queen_move(overlay: TileMapLayer, current: Vector2i): #bee
+func draw_queen_move(overlay: TileMapLayer, current: Vector2i):
+	draw_bischop_move(overlay, current)
+	draw_tower_move(overlay, current)
+func draw_full_move(overlay: TileMapLayer, current: Vector2i): #bee
 	for x in range(0, 9):
 		for y in range(0, 9):
 			overlay.set_cell(Vector2i(x, y), OVERLAY_SOURCE_ID, Vector2i(Overlay.OverlayType.CAN_MOVE,0))
