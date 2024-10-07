@@ -12,12 +12,14 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
-
 func _on_toggled(toggled_on: bool) -> void:
-	if toggled_on:
-		self.text = "close"
-	else:
-		self.text = "info"
+	#if toggled_on:
+		#set_text("Close")
+		#update_minimum_size()
+	#else:
+		#set_text("Guide")
+		#update_minimum_size()
+	
 	creature_manual.visible = toggled_on
 	if (not global_time.is_stopped()):
 		layer_holder.visible = !toggled_on

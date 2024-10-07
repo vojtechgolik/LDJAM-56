@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bwdkrbcwjsh0i"]
+[gd_scene load_steps=12 format=3 uid="uid://bwdkrbcwjsh0i"]
 
 [ext_resource type="PackedScene" uid="uid://63amlns11nnd" path="res://scenes/main_menu.tscn" id="1_cce5c"]
 [ext_resource type="Texture2D" uid="uid://4kya2boipv2j" path="res://img/game_background.png" id="1_l08ik"]
@@ -10,6 +10,8 @@
 [ext_resource type="PackedScene" uid="uid://7ylgt3dn5s7w" path="res://scenes/difficulty_menu.tscn" id="8_non7j"]
 [ext_resource type="StyleBox" uid="uid://bbiwaxxhkhmg8" path="res://presets/button_background.tres" id="9_s0ox2"]
 [ext_resource type="PackedScene" uid="uid://do0gmer0n4by0" path="res://scenes/victory_screen.tscn" id="10_av0g4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_phc22"]
 
 [node name="Level" type="Node"]
 
@@ -65,6 +67,8 @@ process_mode = 3
 layout_mode = 2
 theme_override_fonts/font = ExtResource("8_6bgn6")
 theme_override_font_sizes/font_size = 28
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_phc22")
+theme_override_styles/pressed = ExtResource("9_s0ox2")
 theme_override_styles/normal = ExtResource("9_s0ox2")
 toggle_mode = true
 text = "Guide"
