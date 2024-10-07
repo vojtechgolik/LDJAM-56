@@ -29,8 +29,10 @@ func show_victory_screen(time: int, rounds: int):
 	round_value.text = str(rounds)
 	
 func restart_pressed():
-	get_tree().set_pause(false)
 	creatures_map.play_again()
+	self.visible = false
+	layer_holder.visible = true
+	get_tree().set_pause(false)
 	
 func exit_game():
 	get_tree().quit()
