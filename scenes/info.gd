@@ -14,6 +14,10 @@ func _process(delta: float) -> void:
 	pass
 
 func _on_toggled(toggled_on: bool) -> void:
+	if toggled_on:
+		self.text = "close"
+	else:
+		self.text = "info"
 	creature_manual.visible = toggled_on
 	if (not global_time.is_stopped()):
 		layer_holder.visible = !toggled_on
