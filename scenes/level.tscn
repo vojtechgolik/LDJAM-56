@@ -10,6 +10,8 @@
 
 [node name="Level" type="Node"]
 
+[node name="GlobalTime" type="Timer" parent="."]
+
 [node name="Background" type="ColorRect" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
@@ -53,6 +55,7 @@ theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
 
 [node name="Info" type="Button" parent="UIContainer"]
+process_mode = 3
 layout_mode = 2
 theme_override_font_sizes/font_size = 28
 toggle_mode = true
