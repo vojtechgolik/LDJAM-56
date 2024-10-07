@@ -5,7 +5,7 @@ extends Control
 @onready var round_value: Label = $CenterContainer/VBoxContainer/RoundContainer/RoundValue
 @onready var layer_holder: Node2D = $"../layer_holder"
 @onready var inventory: Node2D = $"../Inventory"
-
+@onready var creatures_map: Node2D = $"../layer_holder/creatures_map"
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -29,7 +29,8 @@ func show_victory_screen(time: int, rounds: int):
 	round_value.text = str(rounds)
 	
 func restart_pressed():
-	pass
+	get_tree().set_pause(false)
+	creatures_map.play_again()
 	
 func exit_game():
 	get_tree().quit()
