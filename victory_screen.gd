@@ -18,6 +18,7 @@ func _process(delta: float) -> void:
 	pass
 
 func show_victory_screen(time: int, rounds: int):
+	get_tree().set_pause(true)
 	var seconds = time % 60
 	var minutes = (time - seconds) / 60
 	var time_string = "{0}:{1}"

@@ -1190,7 +1190,8 @@ sources/6 = SubResource("TileSetAtlasSource_hxyfk")
 script/source = "extends TileMapLayer
 
 @onready var overlay: TileMapLayer = $\"../overlay\"
-@onready var animation_timer: Timer = $\"../../AnimationTimer\"
+@onready var game_timer: Timer = $\"../GameTimer\"
+@onready var animation_timer: Timer = $\"../AnimationTimer\"
 @onready var creatures_map: TileMapLayer = $\".\"
 @onready var victory_screen: Control = $\"../../VictoryScreen\"
 const ANIMAL_SOURCE_ID = 4
@@ -1479,11 +1480,10 @@ func _on_animation_timer_timeout() -> void:
 	else:
 		animation_ticks = -360
 	last_animal_selected.rotation_degrees = sin(animation_ticks) * 12
-	#pass # Replace with function body.
 
-
-func _on_game_time_timeout() -> void:
+func _on_game_timer_timeout() -> void:
 	time_elapsed += 1
+	print(time_elapsed)
 "
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_h7iyd"]
@@ -1664,3 +1664,12 @@ script = SubResource("GDScript_4bxh6")
 
 [node name="overlay" type="TileMapLayer" parent="."]
 tile_set = SubResource("TileSet_gdw4a")
+
+[node name="GameTimer" type="Timer" parent="."]
+
+[node name="AnimationTimer" type="Timer" parent="."]
+process_mode = 3
+wait_time = 0.22
+
+[connection signal="timeout" from="GameTimer" to="creatures_map" method="_on_game_timer_timeout"]
+[connection signal="timeout" from="AnimationTimer" to="creatures_map" method="_on_animation_timer_timeout"]

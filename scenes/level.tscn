@@ -8,12 +8,6 @@
 
 [node name="Level" type="Node"]
 
-[node name="AnimationTimer" type="Timer" parent="."]
-process_mode = 3
-wait_time = 0.22
-
-[node name="GameTime" type="Timer" parent="."]
-
 [node name="Background" type="ColorRect" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
@@ -37,5 +31,3 @@ visible = false
 
 [node name="layer_holder" parent="." instance=ExtResource("5_d33uo")]
 position = Vector2(66, 68)
-
-[connection signal="timeout" from="AnimationTimer" to="MainMenu" method="_on_timer_timeout"]
