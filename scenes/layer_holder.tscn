@@ -1190,7 +1190,8 @@ sources/6 = SubResource("TileSetAtlasSource_hxyfk")
 script/source = "extends TileMapLayer
 
 @onready var overlay: TileMapLayer = $\"../overlay\"
-@onready var game_timer: Timer = $\"../GameTimer\"
+#@onready var game_timer: Timer = $\"../GameTimer\"
+@onready var game_time: Timer = $GameTime
 @onready var animation_timer: Timer = $\"../AnimationTimer\"
 @onready var creatures_map: TileMapLayer = $\".\"
 @onready var victory_screen: Control = $\"../../VictoryScreen\"
@@ -1368,6 +1369,7 @@ func check_win():
 func on_win():
 	#print(\\\"You have won kekw\\\")	
 	victory_screen.show_victory_screen(time_elapsed, total_rounds)
+	game_time.stop()
 func get_animal_from_id(animal: int):
 	match animal:
 		0:
@@ -1483,7 +1485,6 @@ func _on_animation_timer_timeout() -> void:
 
 func _on_game_timer_timeout() -> void:
 	time_elapsed += 1
-	print(time_elapsed)
 "
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_h7iyd"]

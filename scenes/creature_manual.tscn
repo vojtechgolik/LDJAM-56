@@ -1,5 +1,6 @@
-[gd_scene load_steps=10 format=3 uid="uid://b614h4fi08dpg"]
+[gd_scene load_steps=11 format=3 uid="uid://b614h4fi08dpg"]
 
+[ext_resource type="Script" path="res://scenes/creature_manual.gd" id="1_2oxxa"]
 [ext_resource type="Texture2D" uid="uid://qc2jv3w5bt24" path="res://img/snail/snail_idle.png" id="1_8jffn"]
 [ext_resource type="Texture2D" uid="uid://dvetv1hksbnpi" path="res://img/mole/mole_idle.png" id="1_aaopi"]
 [ext_resource type="Texture2D" uid="uid://drm821ly0f3g7" path="res://img/bat/bat_idle.png" id="2_80p7x"]
@@ -11,12 +12,24 @@
 [ext_resource type="Texture2D" uid="uid://dy58cu1b7w8ga" path="res://img/bee/bee_idle.png" id="9_7e5x3"]
 
 [node name="CreatureManual" type="Control"]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_2oxxa")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 0.933333, 0.890196, 1)
+metadata/_edit_lock_ = true
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 1

@@ -2,7 +2,6 @@ extends Control
 @onready var start: Button = $CenterContainer/VBoxContainer3/ButtonContainer/Start
 @onready var exit: Button = $CenterContainer/VBoxContainer3/ButtonContainer/Exit
 @onready var difficulty_menu: Control = $"../DifficultyMenu"
-@onready var timer: Timer = $"../Timer"
 @onready var label: Label = $CenterContainer/VBoxContainer3/LabelContainer/MarginContainer/Label
 @onready var layer_holder: Node2D = $"../layer_holder"
 @onready var game_time: Timer = $"../GameTime"
