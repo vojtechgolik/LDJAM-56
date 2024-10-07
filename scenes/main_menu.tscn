@@ -1,6 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://63amlns11nnd"]
+[gd_scene load_steps=6 format=3 uid="uid://63amlns11nnd"]
 
 [ext_resource type="Script" path="res://MainMenu.gd" id="1_f06pf"]
+[ext_resource type="Texture2D" uid="uid://btfutredueoad" path="res://img/background.png" id="2_ddobw"]
+[ext_resource type="FontFile" uid="uid://bon3ffufyicl4" path="res://fonts/Caveat-SemiBold.ttf" id="3_1xuv2"]
+[ext_resource type="FontFile" uid="uid://bewjrkmffn8ry" path="res://fonts/IBMPlexSerif-Medium.ttf" id="4_fo2p2"]
+[ext_resource type="StyleBox" uid="uid://bbiwaxxhkhmg8" path="res://presets/button_background.tres" id="4_p85ak"]
 
 [node name="MainMenu" type="Control"]
 process_mode = 2
@@ -11,6 +15,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_f06pf")
+
+[node name="Background2" type="Sprite2D" parent="."]
+position = Vector2(388, 464)
+texture = ExtResource("2_ddobw")
 
 [node name="Background" type="ColorRect" parent="."]
 visible = false
@@ -44,9 +52,10 @@ theme_override_constants/margin_bottom = 30
 
 [node name="Label" type="Label" parent="CenterContainer/VBoxContainer3/LabelContainer/MarginContainer"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.605284, 0.19728, 0.220959, 1)
-theme_override_font_sizes/font_size = 66
-text = "CREATURE PLACE"
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_1xuv2")
+theme_override_font_sizes/font_size = 86
+text = "Creature Place"
 
 [node name="ButtonContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer3"]
 layout_mode = 2
@@ -56,11 +65,15 @@ size_flags_vertical = 3
 [node name="Start" type="Button" parent="CenterContainer/VBoxContainer3/ButtonContainer"]
 layout_mode = 2
 mouse_default_cursor_shape = 2
+theme_override_fonts/font = ExtResource("4_fo2p2")
 theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = ExtResource("4_p85ak")
 text = "Start game"
 
 [node name="Exit" type="Button" parent="CenterContainer/VBoxContainer3/ButtonContainer"]
 layout_mode = 2
 mouse_default_cursor_shape = 2
+theme_override_fonts/font = ExtResource("4_fo2p2")
 theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = ExtResource("4_p85ak")
 text = "Exit"
